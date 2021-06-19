@@ -26,7 +26,7 @@ if ($_REQUEST["term2"] == "GeschwindigkeitUebergang") {
     } else {
         echo "Zahl eingeben";
     }
-} elseif ($_REQUEST["term2"] == "AnzahlEintraege") {
+} else if ($_REQUEST["term2"] == "AnzahlEintraege") {
 
     if ($_REQUEST["term"]) {
         $uebergang = $_REQUEST["term"];
@@ -53,11 +53,3 @@ if ($_REQUEST["term2"] == "GeschwindigkeitUebergang") {
         echo "Zahl eingeben";
     }
 }
-
-/*
-if($_REQUEST["term2"]){
-    $anzahlEintraege = $_REQUEST["term2"];
-}else{
-    $anzahlEintraege = null;
-}
-*/

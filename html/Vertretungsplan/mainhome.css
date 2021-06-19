@@ -4,6 +4,7 @@
     --main-box-bg-color: #DBDBDB;
     --box-text-color: #fff;
     --box-bg-color: rgba(219, 84, 91, 0.719);
+    --text-color: #000;
 }
 
 html,
@@ -11,20 +12,65 @@ body {
     font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Open Sans, Ubuntu, Fira Sans, Helvetica Neue, sans-serif;
     font-size: larger;
     width: 100%;
+    height: 100%;
     text-align: center;
     background-color: var(--main-bg-color);
+    overflow: hidden;
 }
 
-.main {
+.news {
+    width: 95%;
+    height: 9vh;
+    margin-top: 2vh;
+    margin-left: auto;
+    margin-right: auto;
     border-radius: 10px;
     background: var(--main-box-color);
     box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.3);
     box-sizing: border-box;
-    padding: 30px 30px 30px 21px;
-    margin-left: 2.5%;
-    margin-top: 2.5vh;
+}
+
+.marquee {
+    max-width: 100vw;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.marquee span {
+    display: inline-block;
+    padding-left: 105%;
+    /* die zusätzlichen 5% erzeugen einen verzögerten Start und vermeiden so ein Ruckeln auf langsamen Seiten */
+    animation: marquee 10s linear infinite;
+}
+
+
+/* Make it move */
+
+@keyframes marquee {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+main {
+    display: grid;
     width: 95%;
-    height: 95%;
+    margin: auto;
+    column-gap: 0.5%;
+    grid-template-columns: 49.75% 49.75%;
+}
+
+.innerMain {
+    border-radius: 10px;
+    background: var(--main-box-color);
+    box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.3);
+    box-sizing: border-box;
+    padding: 30px;
+    margin-top: 2vh;
+    height: 100%;
 }
 
 header {
@@ -38,29 +84,7 @@ header {
 
 h2 {
     float: left;
-}
-
-h3 {
-    font-size: x-large;
-    display: inline;
-    border-bottom: 2px solid var(--main-bg-color);
-}
-
-.news {
-    width: 95%;
-    height: 100px;
-    margin-top: 20px;
-    margin-left: auto;
-    margin-right: auto;
-    border-radius: 10px;
-    background: var(--main-box-color);
-    box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.3);
-    box-sizing: border-box;
-}
-
-.newstext {
-    margin-top: 10px;
-    display: block
+    width: 90px;
 }
 
 .outerBox {
@@ -68,27 +92,25 @@ h3 {
     overflow: hidden;
     border-radius: 10px;
     margin-top: 1vh;
-    box-shadow: inset 0 10px 10px 0 rgb(255, 255, 255);
 }
 
 .innerBox {
     display: flex;
     border-radius: 10px;
     background: var(--main-box-bg-color);
-    box-shadow: 0 10px 10px 0 rgba(70, 70, 70, 0.3);
+    box-shadow: 0 2px 2px 0 rgba(70, 70, 70, 0.3);
     box-sizing: border-box;
-    padding: 15px 15px 15px 21px;
-    margin-top: 2.5vh;
-    font-size: 30px;
+    padding: 15px;
+    margin-top: 0.75vh;
 }
 
 .ausfallendeStunden {
-    margin-left: 10%;
+    margin-left: 2%;
     width: 100%;
 }
 
 .ausfallenderText {
-    font-size: 40px;
+    font-size: 20px;
 }
 
 .eintrag {
@@ -96,12 +118,16 @@ h3 {
     background: var(--box-bg-color);
     box-sizing: border-box;
     margin-left: 1%;
+    margin-top: 1%;
     float: left;
-    padding: 2.5vh;
+    padding: 1vh;
+    min-width: 15vh;
+    min-height: 15vh;
+    font-size: 3vh;
 }
 
 .kisteUeberschrift {
-    font-size: 5vh;
+    font-size: 3vh;
     margin-top: 0px;
     font-weight: bold;
 }

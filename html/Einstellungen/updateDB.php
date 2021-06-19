@@ -25,6 +25,7 @@
         //$zeile = fgets($fp);
         //echo "<tr><td>$zeile</td>";
 
+        // Einträge ohne Klasse nicht in DB
 
         $getTextLine = fgets($fp);
         $explodeLine = explode(",", $getTextLine);
@@ -80,6 +81,8 @@
 
     mysqli_close($db);
     fclose($fp);
+
+    header('location: ../Einstellungen/settings.php');
     ?>
 </body>
 

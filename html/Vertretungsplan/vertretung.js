@@ -1,22 +1,38 @@
-var a = 0;
+$time = 600;
+$speed = 1;
 
-function showDiv() {
-    if (a == 0) {
-        document.getElementById('0').style.display = "block";
-        if (document.getElementById('1')) {
-            document.getElementById('1').style.display = "none";
+var myVar = setInterval(function() {
+    myScroller("scrollarea");
+    myScroller("scrollarea2");
+
+}, 2);
+
+$counter = 0;
+$switch = 0;
+
+function myScroller($input) {
+    if (document.getElementById($input).scrollTop + document.getElementById($input).clientHeight >= document.getElementById($input).scrollHeight) {
+        if ($counter < $time) {
+            $counter++;
+        } else {
+            $counter = 0;
+            $switch = 1;
+            document.getElementById($input).scrollTop -= $speed;
         }
-        a++;
-    } else if (a == 1) {
-        if (document.getElementById('1')) {
-            document.getElementById('1').style.display = "block";
+    } else {
+        if ($switch == 1) {
+            document.getElementById($input).scrollTop -= $speed;
+            if (document.getElementById($input).scrollTop == 0) {
+                if ($counter < $time) {
+                    $counter++;
+                } else {
+                    $counter = 0;
+                    $switch = 0;
+                    document.getElementById($input).scrollTop += $speed;
+                }
+            }
+        } else {
+            document.getElementById($input).scrollTop += $speed;
         }
-        document.getElementById('0').style.display = "none";
-        a--;
     }
-}
-
-function test(dauer) {
-    document.getElementById('0').style.display = "block";
-    setInterval(showDiv, dauer);
 }

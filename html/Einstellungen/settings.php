@@ -210,85 +210,24 @@
         <p class="u-text u-text-8">
 
         <div class="grid-layout">
-            <div class="grid-item grid-item-1">Geschwindigkeit für Übergang in m.sec
+            <div class="grid-item grid-item-1">Geschwindigkeit der Slidefunktion
                 <div id="GeschwindigkeitUebergang">
                     <input id="inhalt">
                     <div class="status"></div>
                 </div>
             </div>
-            <div class="grid-item grid-item-2">Anzahl der Einträge pro Tabelle
+            <div class="grid-item grid-item-2">Wartezeit bei Ende der Liste
                 <div id="AnzahlEintraege">
                     <input id="inhalt2">
                     <div class="status2"></div>
                 </div>
 
             </div>
-            <div class="grid-item grid-item-3">Anzahl der User:
-                </br>
-                <?php
-                $db = new mysqli('localhost', 'root', '', 'dys');
-                if ($db->connect_errno) {
-                    die("Verbindung fehlgeschlagen: " . $db->connect_error);
-                }
-                mysqli_set_charset($db, "utf8");
-
-                $morgen = date('Y-m-d', strtotime('now + 1 day'));
-                $sql = "SELECT * FROM benutzer ";
-
-                $db_erg = mysqli_query($db, $sql);
-                if (!$db_erg) {
-                    die('Ungültige Abfrage: ');
-                }
-                echo '<br>' . $db_erg->num_rows;
-                mysqli_free_result($db_erg);
-
-                mysqli_close($db);
-                ?>
+            <div class="grid-item grid-item-5">
+            
+                <a href="../Einstellungen/updateDB.php"> Refresh DB </a>
+            
             </div>
-            <div class="grid-item span-3 grid-item-4">eingetragene Ereignisse <br><br>
-
-                <?php
-                $db = new mysqli('localhost', 'root', '', 'dys');
-                if ($db->connect_errno) {
-                    die("Verbindung fehlgeschlagen: " . $db->connect_error);
-                }
-                mysqli_set_charset($db, "utf8");
-
-                $sql = "SELECT * FROM ereignis";
-
-                $db_erg = mysqli_query($db, $sql);
-                if (!$db_erg) {
-                    die('Ungültige Abfrage: ');
-                }
-
-                echo '<table border = "1px" style="margin: auto; table-layout: fixed">';
-                echo '<thead> 
-                    <tr>
-                    <th>EID</th>
-                    <th>Ereignbis Typ</th>
-                    <th>Datum</th>
-                    <th>Klasse</th>
-                    <th>Inhalt</th>
-                    <th>Delete</th>
-                    </tr> 
-                    </thead>
-                    <tbody>';
-                while ($zeile = mysqli_fetch_array($db_erg, MYSQLI_ASSOC)) {
-                    $content = $zeile['EID'];
-                    echo "<tr>";
-                    echo "<td>" . $zeile['EID'] . "</td>";
-                    echo "<td>" . $zeile['EreignisTyp'] . "</td>";
-                    echo "<td>" . $zeile['Datum'] . "</td>";
-                    echo "<td>" . $zeile['Klasse'] . "</td>";
-                    echo "<td>" . $zeile['Inhalt'] . "</td>";
-                    echo "<td><input id='$content' value='$content' type='button' name='Löschen' onclick='reply_click(this.id)'></input></td>";
-                    echo "</tr>";
-                }
-                echo "<?tbody></table>";
-                mysqli_free_result($db_erg);
-                ?>
-            </div>
-            <div class="grid-item grid-item-5" onclick="window.location.reload();">Refresh</div>
             <div class="grid-item span-2 grid-item-6">Search
 
 
@@ -311,7 +250,7 @@
 
     </div>
     <script>
-        showDiv('2');
+        showDiv('4');
     </script>
 </body>
 
