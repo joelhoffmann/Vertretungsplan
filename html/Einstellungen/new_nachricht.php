@@ -10,6 +10,7 @@
 <?php
     $Inhalt = $_POST["Nachricht"];
     $Uhrzeit = $_POST["Uhrzeit"];
+    $Datum = $_POST["Datum"];
     $Prio = $_POST["prio"];
     $anzahl = 0;
 
@@ -21,7 +22,7 @@
 
     $anzahl = mysqli_fetch_array(mysqli_query($db, "SELECT MAX(NID) FROM news"))[0] + 1;
 
-    $eintrag = "INSERT INTO `news`(`NID`, `Inhalt`, `Uhrzeit`, `Prio`) VALUES ('$anzahl','$Inhalt','$Uhrzeit','$Prio')";
+    $eintrag = "INSERT INTO `news`(`NID`, `Inhalt`,`Datum`, `Uhrzeit`, `Prio`) VALUES ('$anzahl','$Inhalt','$Datum','$Uhrzeit','$Prio')";
 
     $eintragen = mysqli_query($db, $eintrag);
 

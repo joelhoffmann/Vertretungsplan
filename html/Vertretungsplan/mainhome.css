@@ -19,15 +19,32 @@ body {
 }
 
 .news {
-    width: 95%;
+    width: 84%;
     height: 9vh;
     margin-top: 2vh;
-    margin-left: auto;
+    margin-left: 13.5%;
     margin-right: auto;
     border-radius: 10px;
     background: var(--main-box-color);
     box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.3);
     box-sizing: border-box;
+}
+
+.time {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 10%;
+    height: 9vh;
+    margin-top: 2vh;
+    margin-left: 2.5%;
+    float: left;
+    border-radius: 10px;
+    background: var(--main-box-color);
+    box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.3);
+    box-sizing: border-box;
+    font-size: 40px;
+    font-weight: 600;
 }
 
 .marquee {
@@ -117,6 +134,7 @@ h2 {
     color: var(--text-color);
     background: var(--box-bg-color);
     box-sizing: border-box;
+    border-radius: 5px;
     margin-left: 1%;
     margin-top: 1%;
     float: left;

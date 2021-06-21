@@ -1,51 +1,16 @@
-/*
-=====
-DEPENDENCES
-=====
-*/
-
-
-/*.r-link {
-    display: var(--rLinkDisplay, inline-flex) !important;
-}*/
-
 .r-link[href] {
     color: var(--rLinkColor) !important;
     text-decoration: var(--rLinkTextDecoration, none) !important;
 }
-
-
-/*
-  =====
-  CORE STYLES
-  =====
-  */
-
-
-/* 
-  focus state 
-  */
 
 .menu__link:focus {
     outline: var(--menuLinkOutlineWidth, 2px) solid var(--menuLinkOutlineColor, currentColor);
     outline-offset: var(--menuLinkOutlineOffset);
 }
 
-
-/* 
-  fading siblings
-  */
-
 .menu:hover .menu__link:not(:hover) {
     --rLinkColor: var(--menuLinkColorUnactive, rgba(22, 22, 22, .35));
 }
-
-
-/*
-  =====
-  PRESENTATION STYLES
-  =====
-  */
 
 nav {
     background-color: #f0f0f0;
@@ -59,13 +24,6 @@ nav {
     font-weight: 700;
     text-transform: uppercase;
 }
-
-
-/* 
-  =====
-  TEXT UNDERLINED
-  =====
-  */
 
 .text-underlined::before,
 .text-underlined::after {
@@ -95,26 +53,12 @@ nav {
     transition-duration: .2s;
 }
 
-
-/*
-  =====
-  SETTINGS
-  =====
-  */
-
 .page__custom-settings {
     --menuBackgroundColor: #6c5ce7;
     --menuLinkColor: #fff;
     --menuLinkColorUnactive: #241c69;
     --menuLinkOutlineOffset: -.5rem;
 }
-
-
-/*
-  =====
-  DEMO
-  =====
-  */
 
 body {
     font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Open Sans, Ubuntu, Fira Sans, Helvetica Neue, sans-serif;
@@ -123,15 +67,17 @@ body {
     display: flex;
     flex-direction: column;
     background-color: #db545a;
+    text-decoration: none;
+}
+
+a:visited,
+a {
+    text-decoration: none;
+    color: black;
 }
 
 .page {
     box-sizing: border-box;
-    /*
-    max-width: 640px;
-    padding-left: .75rem;
-    padding-right: .75rem;
-    */
 }
 
 .page__menu:nth-child(n+2) {
@@ -182,6 +128,9 @@ h3 {
 }
 
 .grid-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     padding: 1rem;
     font-size: 14px;
     font-weight: bold;

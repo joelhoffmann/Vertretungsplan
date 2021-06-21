@@ -10,7 +10,7 @@ function dbConnect()
     return $db;
 }
 
-function checkDS($zeile, $db, $db_erg, $datum)
+function checkDS($zeile, $db, $db_erg, $datum) //Prüfen auf Doppelstunden
 {
     $now = (int)$zeile['Stunde'];
     if ($now == 1 || $now == 3 || $now == 5 || $now == 8 || $now == 10) {
@@ -23,10 +23,10 @@ function checkDS($zeile, $db, $db_erg, $datum)
             $zeile = mysqli_fetch_array($db_erg, MYSQLI_ASSOC);
             echo "<b>" . (int)$zeile['Stunde'] - 1 . "/" . (int)$zeile['Stunde'] . "<br></b>";
         } else {
-            echo "<b>" . $zeile['Stunde'] . "<br></b>";
+            echo "<b>" . $zeile['Stunde'] . ". Stunde<br></b>";
         }
     } else {
-        echo "<b>" . $zeile['Stunde'] . "<br></b>";
+        echo "<b>" . $zeile['Stunde'] . ". Stunde<br></b>";
     }
 }
 

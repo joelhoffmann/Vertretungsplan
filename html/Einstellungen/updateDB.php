@@ -6,21 +6,18 @@
         echo "The file from above cannot be found!";
         exit;
     }
-
     $fp = fopen("GPU002.TXT", "r");
-
     if (!$fp) {
         echo "Somehow the file cannot be opened! :)";
         exit;
     }
-
     $db = new mysqli('localhost', 'root', '', 'dys');
     if ($db->connect_errno) {
         die("Verbindung fehlgeschlagen: " . $db->connect_error);
     }
     mysqli_set_charset($db, "utf8");
     mysqli_query($db, "DELETE FROM `vertretung_daten`");
-
+    $index = 0;
     while (!feof($fp)) {
         //$zeile = fgets($fp);
         //echo "<tr><td>$zeile</td>";
@@ -44,40 +41,41 @@
         $Vertretungsart = str_replace('"', '', $Vertretungsart);
         $Text_zur_Vertretung = str_replace('"', '', $Text_zur_Vertretung);
 
-        $sql = "INSERT INTO `vertretung_daten`(
-            `Vertretungsnummer`, 
-            `Datum`, 
-            `Stunde`, 
-            `Absenter_Lehrer`, 
-            `Vertretender_Lehrer`, 
-            `Fach`, 
-            `Vertretungsfach`, 
-            `Raum`, 
-            `Vertretungsraum`, 
-            `Klasse(n)`, 
-            `Text_zur_Vertretung`, 
-            `Art_(Bitfeld)`, 
-            `Vertretungsklasse(n)`, 
-            `Vertretungsart`
-            )VALUES (
-            '$Vertretungsnummer ',
-            '$Datum',
-            '$Stunde',
-            '$Absenter_Lehrer',
-            '$Vertretender_Lehrer',
-            '$Fach',
-            '$Vertretungsfach',
-            '$Raum',
-            '$Vertretungsraum',
-            '$Klasse',
-            '$Text_zur_Vertretung',
-            '$Art',
-            '$Vertretungsklasse',
-            '$Vertretungsart')";
+        //Sondereinsatz, Pausenaufsicht
+        if ($Klasse) {
+            $sql = "INSERT INTO `vertretung_daten`(
+                `Vertretungsnummer`, 
+                `Datum`, 
+                `Stunde`, 
+                `Absenter_Lehrer`, 
+                `Vertretender_Lehrer`, 
+                `Fach`, 
+                `Vertretungsfach`, 
+                `Raum`, 
+                `Vertretungsraum`, 
+                `Klasse(n)`, 
+                `Text_zur_Vertretung`, 
+                `Vertretungsklasse(n)`, 
+                `Vertretungsart`
+                )VALUES (
+                '$Vertretungsnummer',
+                '$Datum',
+                '$Stunde',
+                '$Absenter_Lehrer',
+                '$Vertretender_Lehrer',
+                '$Fach',
+                '$Vertretungsfach',
+                '$Raum',
+                '$Vertretungsraum',
+                '$Klasse',
+                '$Text_zur_Vertretung',
+                '$Vertretungsklasse',
+                '$Vertretungsart')";
 
-        mysqli_query($db, $sql);
+            mysqli_query($db, $sql);
+            $index++;
+        }
     }
-
 
     mysqli_close($db);
     fclose($fp);

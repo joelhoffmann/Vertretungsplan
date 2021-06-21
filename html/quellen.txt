@@ -2,7 +2,7 @@ https://freefrontend.com/bootstrap-login-forms/
 
 Weekend: https://codepen.io/faria09/pen/vYGZVgW
 
-kästchen: https://codepen.io/balazs_sziklai/pen/mOwoLg
+Gridsystem: https://codepen.io/balazs_sziklai/pen/mOwoLg
 
 Searchbar: https://www.tutorialrepublic.com/php-tutorial/php-mysql-ajax-live-search.php
 

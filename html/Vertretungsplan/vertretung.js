@@ -1,16 +1,7 @@
-$time = 600;
-$speed = 1;
-
-var myVar = setInterval(function() {
-    myScroller("scrollarea");
-    myScroller("scrollarea2");
-
-}, 2);
-
 $counter = 0;
 $switch = 0;
 
-function myScroller($input) {
+function myScroller($input, $time, $speed) {
     if (document.getElementById($input).scrollTop + document.getElementById($input).clientHeight >= document.getElementById($input).scrollHeight) {
         if ($counter < $time) {
             $counter++;

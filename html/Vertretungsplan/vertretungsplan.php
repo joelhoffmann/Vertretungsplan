@@ -13,21 +13,63 @@
 
     <script language="javascript" type="text/javascript" src="vertretung.js"></script>
     <title>dys - display your school</title>
+
+    <?php
+    include 'vertretungsplan-anzeigen.php';
+
+    $db = dbConnect();
+    $ip = getenv('REMOTE_ADDR');
+    if (mysqli_query($db, "SELECT * FROM `settings` WHERE `IP` LIKE '$ip' ")->num_rows) {
+        $eintrag = "SELECT * FROM `settings` WHERE `IP` LIKE '$ip'";
+        $db_erg = mysqli_query($db, $eintrag);
+        $zeile = mysqli_fetch_array($db_erg, MYSQLI_BOTH);
+        $time = $zeile['E1'];
+        $speed = (int)$zeile['E2'];
+    }
+
+
+    ?>
+    <script>
+        var time = "<?php echo $time; ?>";
+        var speed = "<?php echo (int)$speed; ?>";
+
+        var myVar = setInterval(function() {
+            myScroller("scrollarea", time, 1);
+            myScroller("scrollarea2", time, 1);
+
+        }, 2);
+
+        function startTime() {
+            var today = new Date();
+            var h = today.getHours();
+            var m = today.getMinutes();
+            m = checkTime(m);
+            document.getElementById('Uhrzeit').innerHTML =
+                h + ":" + m;
+            var t = setTimeout(startTime, 1000);
+        }
+
+        function checkTime(i) {
+            if (i < 10) {
+                i = "0" + i
+            }; // add zero in front of numbers < 10
+            return i;
+        }
+    </script>
 </head>
-<?php
-include 'vertretungsplan-anzeigen.php';
-?>
-<style>
 
-</style>
+<body style="margin: 0;" onload="startTime()">
 
-<body style="margin: 0;">
+    <section class="time" id="uhr">
+        <div id="Uhrzeit"></div>
+    </section>
     <!--News-->
     <section class="news">
         <header>News</header>
         <?php
         $db = dbConnect();
-        $eintrag = "SELECT * FROM `news`";
+        $datum = date("Y-m-d");
+        $eintrag = "SELECT * FROM `news` WHERE `Datum` LIKE '$datum'";
         $result = mysqli_query($db, $eintrag);
         echo "<div id='marquee' class='marquee'><span>";
         while ($inhalt = mysqli_fetch_array($result, MYSQLI_BOTH)) {
@@ -39,7 +81,9 @@ include 'vertretungsplan-anzeigen.php';
 
     </section>
 
+
     <main>
+
         <!--Einträge heute-->
         <article class="innerMain">
             <header>Heute</header>
@@ -57,6 +101,7 @@ include 'vertretungsplan-anzeigen.php';
         <article class="innerMain">
             <header>Morgen</header>
             <section class="outerBox" id="scrollarea2">
+
                 <?php
                 $morgen = date('Y-m-d', strtotime('now + 1 day'));
                 $db = dbConnect();
