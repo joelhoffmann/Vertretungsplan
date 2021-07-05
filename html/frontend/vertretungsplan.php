@@ -27,17 +27,19 @@
         $speed = (int)$zeile['E2'];
     }
 
-
     ?>
     <script>
         var time = "<?php echo $time; ?>";
         var speed = "<?php echo (int)$speed; ?>";
 
+        
         var myVar = setInterval(function() {
-            myScroller("scrollarea", time, 1);
-            myScroller("scrollarea2", time, 1);
 
-        }, 2);
+            scrolling("scrollarea");
+            //scrolling("scrollarea2");
+
+
+        }, 5);
 
         function startTime() {
             var today = new Date();
@@ -60,26 +62,7 @@
 
 <body style="margin: 0;" onload="startTime()">
 
-    <section class="time" id="uhr">
-        <div id="Uhrzeit"></div>
-    </section>
-    <!--News-->
-    <section class="news">
-        <header>News</header>
-        <?php
-        $db = dbConnect();
-        $datum = date("Y-m-d");
-        $eintrag = "SELECT * FROM `news` WHERE `Datum` LIKE '$datum'";
-        $result = mysqli_query($db, $eintrag);
-        echo "<div id='marquee' class='marquee'><span>";
-        while ($inhalt = mysqli_fetch_array($result, MYSQLI_BOTH)) {
-            echo "!!! " . $inhalt["Inhalt"] . " !!!" . "&emsp;&emsp;&emsp;";
-        }
-        echo "</span></div>";
-        mysqli_close($db);
-        ?>
-
-    </section>
+    
 
 
     <main>
@@ -111,6 +94,27 @@
             </section>
         </article>
     </main>
+    <!--Uhrzeit-->
+    <section class="time" id="uhr">
+        <div id="Uhrzeit"></div>
+    </section>
+    <!--News-->
+    <section class="news">
+        <header>News</header>
+        <?php
+        $db = dbConnect();
+        $datum = date("Y-m-d");
+        $eintrag = "SELECT * FROM `news` WHERE `Datum` LIKE '$datum'";
+        $result = mysqli_query($db, $eintrag);
+        echo "<div id='marquee' class='marquee'><span>";
+        while ($inhalt = mysqli_fetch_array($result, MYSQLI_BOTH)) {
+            echo "!!! ".$inhalt["Datum"]. ":&emsp; " .$inhalt["Inhalt"] . " !!!" . "&emsp;&emsp;&emsp;";//TODO: Datum muss noch schöner formatiert werden!!!
+        }
+        echo "</span></div>";
+        mysqli_close($db);
+        ?>
+
+    </section>
 </body>
 
 </html>

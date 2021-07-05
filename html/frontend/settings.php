@@ -134,7 +134,7 @@
             <label for="Uhrzeit">Uhrzeit</label>
             <!--Uhrzeit muss noch gemacht werden-->
             </br>
-            <input id="Uhrzeit" name="Uhrzeit" type="time" style="font-size: larger;">
+            <input id="Uhrzeit" name="Uhrzeit" type="time" value="<?php echo date("H:i"); ?>"style="font-size: larger;">
             </br>
 
             <label for="prio">Priorität</label>
@@ -205,14 +205,11 @@
             </div>
             -->
             <a class="grid-item grid-item-7" href="../Vertretungsplan/vertretungsplan.php">Vertretungsplan</a>
-            <div class="grid-item grid-item-8">item 8</div>
-            <div class="grid-item grid-item-9">item 9</div>
-            <div class="grid-item span-2 grid-item-10">item 10</div>
         </div>
 
     </div>
     <script>
-        showDiv('2');
+        showDiv('4');
     </script>
 </body>
 

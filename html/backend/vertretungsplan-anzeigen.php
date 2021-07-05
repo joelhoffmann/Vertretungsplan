@@ -21,7 +21,7 @@ function checkDS($zeile, $db, $db_erg, $datum) //Prüfen auf Doppelstunden
         $db_erg2 = mysqli_query($db, $sql);
         if ($db_erg2->num_rows) {
             $zeile = mysqli_fetch_array($db_erg, MYSQLI_ASSOC);
-            echo "<b>" . (int)$zeile['Stunde'] - 1 . "/" . (int)$zeile['Stunde'] . "<br></b>";
+            echo "<b>" . (int)$zeile['Stunde'] - 1 . "/" . (int)$zeile['Stunde'] . ". Stunde<br></b>";
         } else {
             echo "<b>" . $zeile['Stunde'] . ". Stunde<br></b>";
         }
@@ -55,16 +55,14 @@ function setEntry($db, $datum)
                     if ($zeile['Text_zur_Vertretung'] != null) {
                         echo $zeile['Text_zur_Vertretung'];
                     }
-                    echo "<div class='ausfallenderText'>";
-                    echo "<s>" . $zeile['Fach'] . "</s> &#10132; " . $zeile['Vertretungsfach'] . "<br>";
-                    echo "</div>";
+                    echo "<br><s>" . $zeile['Fach'] . "</s> &#10132; " . $zeile['Vertretungsfach'] . "<br>";
                 } else if ($zeile['Vertretungsart'] == "T") { //verlegt
                     echo "<h6>Verlegt</h6>";
                 } else if ($zeile['Vertretungsart'] == "F") { //verlegt von
                     echo "<h6>Verlegt von</h6>";
                 } else if ($zeile['Vertretungsart'] == "W") { //Tausch ------------------------------------
                     checkDS($zeile, $db, $db_erg, $datum);
-                    echo "<s>" . $zeile['Fach'] . "</s> &#10132; " . $zeile['Vertretungsfach'];
+                    echo "-<br><s>" . $zeile['Fach'] . "</s> &#10132; " . $zeile['Vertretungsfach'];
                 } else if ($zeile['Vertretungsart'] == "S") { //Betreunug
                     echo "<h6>Mathe</h6>";
                 } else if ($zeile['Vertretungsart'] == "A") { //Sondereinsatz

@@ -1,10 +1,9 @@
 :root {
-    --main-bg-color: #db545a;
-    --main-box-color: #fff;
-    --main-box-bg-color: #DBDBDB;
-    --box-text-color: #fff;
-    --box-bg-color: rgba(219, 84, 91, 0.719);
-    --text-color: #000;
+    --main-bg-color: #ffa101;
+    --innerMain-box: #fff;
+    --innerbox-bg-color: rgb(240, 238, 238);
+    --box-bg-color: #b3dee5;
+    --box-text-color: #31525b;
 }
 
 html,
@@ -20,12 +19,12 @@ body {
 
 .news {
     width: 84%;
-    height: 9vh;
-    margin-top: 2vh;
+    height: 12vh;
+    margin-top: 3vh;
     margin-left: 13.5%;
     margin-right: auto;
     border-radius: 10px;
-    background: var(--main-box-color);
+    background: var(--innerMain-box);
     box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.3);
     box-sizing: border-box;
 }
@@ -35,15 +34,15 @@ body {
     flex-direction: column;
     justify-content: center;
     width: 10%;
-    height: 9vh;
-    margin-top: 2vh;
+    height: 12vh;
+    margin-top: 3vh;
     margin-left: 2.5%;
     float: left;
     border-radius: 10px;
-    background: var(--main-box-color);
+    background: var(--innerMain-box);
     box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.3);
     box-sizing: border-box;
-    font-size: 40px;
+    font-size: 50px;
     font-weight: 600;
 }
 
@@ -58,6 +57,7 @@ body {
     padding-left: 105%;
     /* die zusätzlichen 5% erzeugen einen verzögerten Start und vermeiden so ein Ruckeln auf langsamen Seiten */
     animation: marquee 10s linear infinite;
+    font-size: xx-large;
 }
 
 
@@ -82,8 +82,8 @@ main {
 
 .innerMain {
     border-radius: 10px;
-    background: var(--main-box-color);
-    box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.3);
+    background: var(--innerMain-box);
+    box-shadow: 0 10px 100px 0 rgba(0, 0, 0, 0.3);
     box-sizing: border-box;
     padding: 30px;
     margin-top: 2vh;
@@ -99,10 +99,11 @@ header {
     border-bottom: 2px solid var(--main-bg-color);
 }
 
-h2 {
+
+/*h2 {
     float: left;
     width: 90px;
-}
+}*/
 
 .outerBox {
     height: 70vh;
@@ -114,7 +115,7 @@ h2 {
 .innerBox {
     display: flex;
     border-radius: 10px;
-    background: var(--main-box-bg-color);
+    background: var(--innerbox-bg-color);
     box-shadow: 0 2px 2px 0 rgba(70, 70, 70, 0.3);
     box-sizing: border-box;
     padding: 15px;
@@ -126,12 +127,8 @@ h2 {
     width: 100%;
 }
 
-.ausfallenderText {
-    font-size: 20px;
-}
-
 .eintrag {
-    color: var(--text-color);
+    color: var(--box-text-color);
     background: var(--box-bg-color);
     box-sizing: border-box;
     border-radius: 5px;
@@ -139,13 +136,13 @@ h2 {
     margin-top: 1%;
     float: left;
     padding: 1vh;
-    min-width: 15vh;
+    min-width: 20vh;
     min-height: 15vh;
     font-size: 3vh;
 }
 
 .kisteUeberschrift {
     font-size: 3vh;
-    margin-top: 0px;
+    margin-top: none;
     font-weight: bold;
 }
