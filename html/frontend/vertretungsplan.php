@@ -9,35 +9,54 @@
     <meta name="author" content="Simon Krieger">
 
     <link rel="stylesheet" href="mainhome.css">
-    <link rel="stylesheet" href="tabellen.css">
 
-    <script language="javascript" type="text/javascript" src="vertretung.js"></script>
+    <script language="javascript" type="text/javascript" src="../js/vertretung.js"></script>
+    <script language="javascript" type="text/javascript" src="../js/setti.js"></script>
     <title>dys - display your school</title>
 
     <?php
-    include 'vertretungsplan-anzeigen.php';
+    include '../backend/vertretungsplan-anzeigen.php';
 
     $db = dbConnect();
     $ip = getenv('REMOTE_ADDR');
     if (mysqli_query($db, "SELECT * FROM `settings` WHERE `IP` LIKE '$ip' ")->num_rows) {
-        $eintrag = "SELECT * FROM `settings` WHERE `IP` LIKE '$ip'";
+        $eintrag = "SELECT * FROM `settings` WHERE `IP` LIKE '$ip'"; //Ist da noch ein Sinn vorhanden?!?!?!
         $db_erg = mysqli_query($db, $eintrag);
         $zeile = mysqli_fetch_array($db_erg, MYSQLI_BOTH);
-        $time = $zeile['E1'];
-        $speed = (int)$zeile['E2'];
+        $delay = $zeile['E1'];
+        $speed = $zeile['E2'];
     }
 
     ?>
     <script>
-        var time = "<?php echo $time; ?>";
-        var speed = "<?php echo (int)$speed; ?>";
+        var delay = "<?php echo $delay ?>";
+        var speed = "<?php echo $speed ?>";
+        $links = 0;
+        $rechts = 0;
 
+        var links = setInterval(function() {
+            //wenns ove isch
+            if (document.getElementById("scrollarea").scrollTop <= 0) {
+                $links = 0;
+            }
+            //wenns unne isch
+            else if (document.getElementById("scrollarea").scrollTop + document.getElementById("scrollarea").clientHeight >= document.getElementById("scrollarea").scrollHeight) {
+                $links = 1;
+            }
+            scrolling("scrollarea", $links, delay, speed);
+
+        }, 5);
         
-        var myVar = setInterval(function() {
-
-            scrolling("scrollarea");
-            //scrolling("scrollarea2");
-
+        var rechts = setInterval(function() {
+            //wenns ove isch
+            if (document.getElementById("scrollarea2").scrollTop <= 0) {
+                $rechts = 0;
+            }
+            //wenns unne isch
+            else if (document.getElementById("scrollarea2").scrollTop + document.getElementById("scrollarea2").clientHeight >= document.getElementById("scrollarea2").scrollHeight) {
+                $rechts = 1;
+            }
+            scrolling("scrollarea2", $rechts, delay, speed);
 
         }, 5);
 
@@ -62,14 +81,14 @@
 
 <body style="margin: 0;" onload="startTime()">
 
-    
+
 
 
     <main>
 
         <!--Einträge heute-->
         <article class="innerMain">
-            <header>Heute</header>
+            <header><a onclick="test('1');">Heute</a></header>
             <section class="outerBox" id="scrollarea">
                 <?php
                 $datum = date("Y-m-d");
@@ -81,10 +100,9 @@
         </article>
 
         <!--Einträge morgen-->
-        <article class="innerMain">
+        <article class="innerMain" id="1" style="display:none;">
             <header>Morgen</header>
             <section class="outerBox" id="scrollarea2">
-
                 <?php
                 $morgen = date('Y-m-d', strtotime('now + 1 day'));
                 $db = dbConnect();
@@ -92,6 +110,9 @@
                 mysqli_close($db);
                 ?>
             </section>
+        </article>
+        <article class="innerMain" id="2" style="display:none;">
+            <header>Wichtig</header>
         </article>
     </main>
     <!--Uhrzeit-->
@@ -108,13 +129,32 @@
         $result = mysqli_query($db, $eintrag);
         echo "<div id='marquee' class='marquee'><span>";
         while ($inhalt = mysqli_fetch_array($result, MYSQLI_BOTH)) {
-            echo "!!! ".$inhalt["Datum"]. ":&emsp; " .$inhalt["Inhalt"] . " !!!" . "&emsp;&emsp;&emsp;";//TODO: Datum muss noch schöner formatiert werden!!!
+            echo "!!! " . $inhalt["Datum"] . ":&emsp; " . $inhalt["Inhalt"] . " !!!" . "&emsp;&emsp;&emsp;"; //TODO: Datum muss noch schöner formatiert werden!!!
         }
         echo "</span></div>";
         mysqli_close($db);
         ?>
 
     </section>
+    <script>
+        <?php
+        //Abfrage welche News Art
+        //Bei keiner Nachricht vorhanden darf die Funktion nicht ausgeführt werden
+        ?>
+        /*
+                var Switch = setInterval(function() {
+                    if (document.getElementById('1').style.display == "block") {
+                        document.getElementById('1').style.display = "none";
+                        document.getElementById('2').style.display = "block";
+                    } else {
+                        document.getElementById('1').style.display = "block";
+                        document.getElementById('2').style.display = "none";
+                    }
+
+                }, 3000);//Zeit muss noch auf 30 Sekunden gestellt werden
+        */
+        test(1);
+    </script>
 </body>
 
 </html>

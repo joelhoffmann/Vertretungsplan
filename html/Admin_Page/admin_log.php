@@ -15,15 +15,10 @@
             <!-- Tabs Titles -->
             <h2 class="active"> Sign In </h2>
 
-            <!-- Icon -->
-            <div class="fadeIn first">
-                <img src="http://danielzawadzki.com/codepen/01/icon.svg" id="icon" alt="User Icon" />
-            </div>
-
             <!-- Login Form -->
             <form action="pruef.php" method="post">
-                <input id="login" name="login" type="text" class="fadeIn second" placeholder="login">
-                <input id="password" name="password" type="password" class="fadeIn third">
+                <input id="login" name="login" type="text" class="fadeIn second" placeholder="username">
+                <input id="password" name="password" type="password" class="fadeIn third" placeholder="password">
                 <input type="submit" class="fadeIn fourth" value="Log In">
             </form>
 

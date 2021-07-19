@@ -10,28 +10,58 @@ function dbConnect()
     return $db;
 }
 
-function checkDS($zeile, $db, $db_erg, $datum) //Prüfen auf Doppelstunden
+function checkDS($zeile, $db, $db_erg, $datum) //Prüfen auf Doppelstunden...funktioniert nicht ganz richtig
 {
     $now = (int)$zeile['Stunde'];
     if ($now == 1 || $now == 3 || $now == 5 || $now == 8 || $now == 10) {
-        $Stunde = (int)$zeile['Stunde'] + 1;
+        $test = $now + 1;
         $Klasse = $zeile['Klasse(n)'];
         $Fach = $zeile['Fach'];
-        $sql = "SELECT * FROM `vertretung_daten` WHERE `Klasse(n)` LIKE '$Klasse' AND `Stunde` LIKE '$Stunde' AND `Fach` LIKE '$Fach' AND `Datum` LIKE '$datum' ORDER BY `Stunde`";
+        $Absenter_Lehrer = $zeile['Absenter_Lehrer'];
+        $Vertretungsnummer = $zeile['Vertretungsnummer'];
+
+        $sql = "SELECT * FROM `vertretung_daten` WHERE `Klasse(n)` LIKE '$Klasse' AND `Stunde` LIKE '$test' AND `Fach` LIKE '$Fach' AND `Datum` LIKE '$datum' AND `Absenter_Lehrer` LIKE '$Absenter_Lehrer' AND `Vertretungsnummer` NOT LIKE '$Vertretungsnummer' ORDER BY `Stunde`";
         $db_erg2 = mysqli_query($db, $sql);
+
         if ($db_erg2->num_rows) {
-            $zeile = mysqli_fetch_array($db_erg, MYSQLI_ASSOC);
-            echo "<b>" . (int)$zeile['Stunde'] - 1 . "/" . (int)$zeile['Stunde'] . ". Stunde<br></b>";
+            $zeile2 = mysqli_fetch_array($db_erg2, MYSQLI_ASSOC);
+            echo "<section class='eintrag'>";
+            echo "<b>" . (int)$zeile2['Stunde'] - 1 . "/" . (int)$zeile2['Stunde'] . ". Stunde<br></b>";
+            return "true";
         } else {
+            echo "<section class='eintrag'>";
             echo "<b>" . $zeile['Stunde'] . ". Stunde<br></b>";
+            return "true";
+        }
+    } else if ($now == 2 || $now == 4 || $now == 6 || $now == 9 || $now == 11) {
+        $test = $now - 1;
+        $Klasse = $zeile['Klasse(n)'];
+        $Fach = $zeile['Fach'];
+        $Absenter_Lehrer = $zeile['Absenter_Lehrer'];
+        $Vertretungsnummer = $zeile['Vertretungsnummer'];
+
+        $sql = "SELECT * FROM `vertretung_daten` WHERE `Klasse(n)` LIKE '$Klasse' AND `Stunde` LIKE '$test' AND `Fach` LIKE '$Fach' AND `Datum` LIKE '$datum' AND `Absenter_Lehrer` LIKE '$Absenter_Lehrer' AND `Vertretungsnummer` NOT LIKE '$Vertretungsnummer' ORDER BY `Stunde`";
+        $db_erg2 = mysqli_query($db, $sql);
+
+        if ($db_erg2->num_rows == null) {
+            echo "<section class='eintrag'>";
+            echo "<b>" . $zeile['Stunde'] . ". Stunde<br></b>";
+            return "true";
+        } else {
+            return "false";
         }
     } else {
+        //gibt es die ds schon
+        echo "<section class='eintrag'>";
         echo "<b>" . $zeile['Stunde'] . ". Stunde<br></b>";
+        return "true";
     }
 }
 
 function setEntry($db, $datum)
 {
+
+
     $klassen = array(
         "05a", "05b", "05c", "05d", "05e", "05f", "06g", "06a", "06b", "06c", "06d", "06e", "06f", "06g", "07a", "07b", "07c", "07d", "07e", "07f", "07g",
         "08a", "08b", "08c", "08d", "08e", "08f", "08g", "09a", "09b", "09c", "09d", "09e", "09f", "09g", "10a", "10b", "10c", "10d", "10e", "10f", "10g",
@@ -47,48 +77,94 @@ function setEntry($db, $datum)
         }
 
         if ($db_erg->num_rows > 0) {
-            echo "<section class='innerBox'> <h2>$klassen[$i]</h2> <section class='ausfallendeStunden'>";
+            echo "<section class='innerBox'><h2>$klassen[$i]</h2><section class='ausfallendeStunden'>";
             while ($zeile = mysqli_fetch_array($db_erg, MYSQLI_ASSOC)) {
-                echo "<section class='eintrag'>";
-                if ($zeile['Vertretungsart'] == null) { //Other ------------------------------------
-                    checkDS($zeile, $db, $db_erg, $datum);
-                    if ($zeile['Text_zur_Vertretung'] != null) {
-                        echo $zeile['Text_zur_Vertretung'];
+                $ende = "true";
+                if (1 == 1) {
+                    if ($zeile['Vertretungsart'] == null) { //Other ------------------------------------
+                        $ende = checkDS($zeile, $db, $db_erg, $datum);
+                        if ($ende == "true") {
+                            if ($zeile['Text_zur_Vertretung'] != null) {
+                                echo $zeile['Text_zur_Vertretung'];
+                            }
+                            echo "<br><s>" . $zeile['Fach'] . "</s> &#10132; " . $zeile['Vertretungsfach'] . "<br>";
+                        }
+                    } else if ($zeile['Vertretungsart'] == "T") { //verlegt
+                        echo "<h6>Verlegt</h6>";
+                    } else if ($zeile['Vertretungsart'] == "F") { //verlegt von
+                        echo "<h6>Verlegt von</h6>";
+                    } else if ($zeile['Vertretungsart'] == "W") { //Tausch ------------------------------------
+                        $ende = checkDS($zeile, $db, $db_erg, $datum);
+                        if ($ende == "true") {
+                            echo "-<br><s>" . $zeile['Fach'] . "</s> &#10132; " . $zeile['Vertretungsfach'];
+                        }
+                    } else if ($zeile['Vertretungsart'] == "S") { //Aufsicht ------------------------------------
+                        $ende = checkDS($zeile, $db, $db_erg, $datum);
+                        if ($ende == "true") {
+                            if ($zeile['Absenter_Lehrer'] != $zeile['Vertretender_Lehrer']) {
+                                echo "<s>" . $zeile['Absenter_Lehrer'] . "</s> &#10132; " . $zeile['Vertretender_Lehrer'];
+                            }
+                            if ($zeile['Fach'] != $zeile['Vertretungsfach']) {
+                                echo "<br><s>" . $zeile['Fach'] . "</s> &#10132; " . $zeile['Vertretungsfach'];
+                            }
+                            if ($zeile['Raum'] != $zeile['Vertretungsraum']) {
+                                echo "<br><s>" . $zeile['Raum'] . "</s> &#10132; " . $zeile['Vertretungsraum'];
+                            }
+
+                            if ($zeile['Text_zur_Vertretung'] != null) {
+                                echo $zeile['Text_zur_Vertretung'];
+                            }
+                        }
+                    } else if ($zeile['Vertretungsart'] == "A") { //Sondereinsatz ------------------------------------
+                        $ende = checkDS($zeile, $db, $db_erg, $datum);
+                        if ($ende == "true") {
+                            if ($zeile['Absenter_Lehrer'] != $zeile['Vertretender_Lehrer']) {
+                                echo "<s>" . $zeile['Absenter_Lehrer'] . "</s> &#10132; " . $zeile['Vertretender_Lehrer'];
+                            }
+                            if ($zeile['Fach'] != $zeile['Vertretungsfach']) {
+                                echo "<br><s>" . $zeile['Fach'] . "</s> &#10132; " . $zeile['Vertretungsfach'];
+                            }
+                            if ($zeile['Raum'] != $zeile['Vertretungsraum']) {
+                                echo "<br><s>" . $zeile['Raum'] . "</s> &#10132; " . $zeile['Vertretungsraum'];
+                            }
+
+                            if ($zeile['Text_zur_Vertretung'] != null) {
+                                echo $zeile['Text_zur_Vertretung'];
+                            }
+                        }
+                    } else if ($zeile['Vertretungsart'] == "C") { //Entfall ------------------------------------
+                        $ende = checkDS($zeile, $db, $db_erg, $datum);
+                        if ($ende == "true") {
+                            echo "Entfall" . "<br>";
+                            echo "<s>" . $zeile['Fach'] . "</s> " . $zeile['Absenter_Lehrer'];
+                        }
+                    } else if ($zeile['Vertretungsart'] == "L") { //Freisetzung
+                        $ende = checkDS($zeile, $db, $db_erg, $datum);
+                        if ($ende == "true") {
+                            echo "Entfall" . "<br>";
+                            echo "<s>" . $zeile['Fach'] . "</s>";
+                        }
+                    } else if ($zeile['Vertretungsart'] == "P") { //Teil-Vertretung
+                        echo "<h6>Teil-Vertretung</h6>";
+                    } else if ($zeile['Vertretungsart'] == "R") { //Raumverlegung ------------------------------------
+                        $ende = checkDS($zeile, $db, $db_erg, $datum);
+                        if ($ende == "true") {
+                            if ($zeile['Text_zur_Vertretung'] != null) {
+                                echo $zeile['Text_zur_Vertretung'] . "<br>";
+                            }
+                            echo "<s>" . $zeile['Raum'] . "</s> &#10132; " . $zeile['Vertretungsraum'] . "<br>";
+                        }
+                    }else if ($zeile['Vertretungsart'] == "~") { //Lehrertausch
+                        echo "<h6>Lehrertausch</h6>";
+                    } else if ($zeile['Vertretungsart'] == "E") { //Klausur
+                        echo "<h6>Klausur</h6>";
                     }
-                    echo "<br><s>" . $zeile['Fach'] . "</s> &#10132; " . $zeile['Vertretungsfach'] . "<br>";
-                } else if ($zeile['Vertretungsart'] == "T") { //verlegt
-                    echo "<h6>Verlegt</h6>";
-                } else if ($zeile['Vertretungsart'] == "F") { //verlegt von
-                    echo "<h6>Verlegt von</h6>";
-                } else if ($zeile['Vertretungsart'] == "W") { //Tausch ------------------------------------
-                    checkDS($zeile, $db, $db_erg, $datum);
-                    echo "-<br><s>" . $zeile['Fach'] . "</s> &#10132; " . $zeile['Vertretungsfach'];
-                } else if ($zeile['Vertretungsart'] == "S") { //Betreunug
-                    echo "<h6>Mathe</h6>";
-                } else if ($zeile['Vertretungsart'] == "A") { //Sondereinsatz
-                    echo "<h6>Mathe</h6>";
-                } else if ($zeile['Vertretungsart'] == "C") { //Entfall ------------------------------------
-                    checkDS($zeile, $db, $db_erg, $datum);
-                    echo "Entfall" . "<br>";
-                    echo "<s>" . $zeile['Fach'] . "</s>";
-                } else if ($zeile['Vertretungsart'] == "L") { //Freisetzung
-                    echo "<h6>Mathe</h6>";
-                } else if ($zeile['Vertretungsart'] == "P") { //Teil-Vertretung
-                    echo "<h6>Mathe</h6>";
-                } else if ($zeile['Vertretungsart'] == "R") { //Raumverlegung ------------------------------------
-                    checkDS($zeile, $db, $db_erg, $datum);
-                    if ($zeile['Text_zur_Vertretung'] != null) {
-                        echo $zeile['Text_zur_Vertretung'] . "<br>";
+                    if ($ende == "true") {
+                        echo "</section>";
+                    } else {
+                        $ende = "true";
                     }
-                    echo "<s>" . $zeile['Raum'] . "</s> &#10132; " . $zeile['Vertretungsraum'] . "<br>";
-                } else if ($zeile['Vertretungsart'] == "B") { //Pausenaufsichtsvertretung
-                    echo "<h6>Mathe</h6>";
-                } else if ($zeile['Vertretungsart'] == "~") { //Lehrertsuch
-                    echo "<h6>Mathe</h6>";
-                } else if ($zeile['Vertretungsart'] == "E") { //Klausur
-                    echo "<h6>Mathe</h6>";
                 }
-                echo "</section>";
             }
             echo "</section></section>";
         }

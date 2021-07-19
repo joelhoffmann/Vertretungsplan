@@ -26,7 +26,7 @@
     if ($erg->num_rows > 0) {
         $zeile = mysqli_fetch_array($erg, MYSQLI_ASSOC);
         if ($zeile['Passwort'] == $password) {
-            header('location: ../Einstellungen/settings.php');
+            header('location: ../frontend/settings.php');
         } else {
             echo "Anmeldung fehlgeschlagen";
         }

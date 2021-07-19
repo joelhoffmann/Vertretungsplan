@@ -4,3 +4,7 @@ function showDiv(id) {
     }
     document.getElementById(id).style.display = "block";
 }
+
+function test(id) {
+    document.getElementById(id).style.display = "block";
+}

@@ -1,9 +1,14 @@
 :root {
     --main-bg-color: #ffa101;
+    /*Main Background color*/
     --innerMain-box: #fff;
+    /*color for big boxes*/
     --innerbox-bg-color: rgb(240, 238, 238);
+    /*color for the smaller boxes for the separate classes*/
     --box-bg-color: #b3dee5;
+    /*color for separate boxes*/
     --box-text-color: #31525b;
+    /*text color in boxes*/
 }
 
 html,
@@ -27,6 +32,7 @@ body {
     background: var(--innerMain-box);
     box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.3);
     box-sizing: border-box;
+    position: relative;
 }
 
 .time {
@@ -44,6 +50,7 @@ body {
     box-sizing: border-box;
     font-size: 50px;
     font-weight: 600;
+    position: relative;
 }
 
 .marquee {
@@ -83,7 +90,7 @@ main {
 .innerMain {
     border-radius: 10px;
     background: var(--innerMain-box);
-    box-shadow: 0 10px 100px 0 rgba(0, 0, 0, 0.3);
+    box-shadow: 0 10px 25px 0 rgba(0, 0, 0, 0.3);
     box-sizing: border-box;
     padding: 30px;
     margin-top: 2vh;
@@ -98,12 +105,6 @@ header {
     color: #0d0d0d;
     border-bottom: 2px solid var(--main-bg-color);
 }
-
-
-/*h2 {
-    float: left;
-    width: 90px;
-}*/
 
 .outerBox {
     height: 70vh;
@@ -122,6 +123,11 @@ header {
     margin-top: 0.75vh;
 }
 
+h2 {
+    float: left;
+    width: 90px;
+}
+
 .ausfallendeStunden {
     margin-left: 2%;
     width: 100%;
@@ -136,13 +142,14 @@ header {
     margin-top: 1%;
     float: left;
     padding: 1vh;
-    min-width: 20vh;
+    min-width: 22vh;
     min-height: 15vh;
     font-size: 3vh;
 }
 
-.kisteUeberschrift {
+
+/*.kisteUeberschrift {
     font-size: 3vh;
     margin-top: none;
     font-weight: bold;
-}
+}*/

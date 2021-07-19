@@ -2,11 +2,11 @@
 
 <body>
     <?php
-    if (!file_exists("GPU002.TXT")) {
+    if (!file_exists("../data/demo2.TXT")) {
         echo "The file from above cannot be found!";
         exit;
     }
-    $fp = fopen("GPU002.TXT", "r");
+    $fp = fopen("../data/demo2.TXT", "r");
     if (!$fp) {
         echo "Somehow the file cannot be opened! :)";
         exit;
@@ -80,7 +80,7 @@
     mysqli_close($db);
     fclose($fp);
 
-    header('location: ../Einstellungen/settings.php');
+    header('location: ../frontend/settings.php');
     ?>
 </body>
 
