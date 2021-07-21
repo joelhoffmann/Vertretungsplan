@@ -2,16 +2,16 @@
 
 <body>
     <?php
-    if (!file_exists("../data/demo2.TXT")) {
+    if (!file_exists("../data/demo2.txt")) {
         echo "The file from above cannot be found!";
         exit;
     }
-    $fp = fopen("../data/demo2.TXT", "r");
+    $fp = fopen("../data/demo2.txt", "r");
     if (!$fp) {
         echo "Somehow the file cannot be opened! :)";
         exit;
     }
-    $db = new mysqli('localhost', 'root', '', 'dys');
+    $db = new mysqli('localhost', 'root', 'root', 'dys');
     if ($db->connect_errno) {
         die("Verbindung fehlgeschlagen: " . $db->connect_error);
     }
