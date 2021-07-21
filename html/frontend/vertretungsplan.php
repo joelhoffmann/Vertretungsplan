@@ -17,7 +17,7 @@
     <?php
     include '../backend/vertretungsplan-anzeigen.php';
     $delay = 1000; //default delay
-    $speed = 2 //default speed
+    $speed = 2; //default speed
     $db = dbConnect();
     //$ip = getenv('REMOTE_ADDR');
     //if (mysqli_query($db, "SELECT * FROM `settings` WHERE `IP` LIKE '$ip' ")->num_rows) {
@@ -27,7 +27,7 @@
         $zeile = mysqli_fetch_array($db_erg, MYSQLI_BOTH);
         $delay = $zeile['E1'];
         $speed = $zeile['E2'];
-    }
+    //}
 
     ?>
     <script>
