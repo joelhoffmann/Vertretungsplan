@@ -14,7 +14,7 @@
     $Prio = $_POST["prio"];
     $anzahl = 0;
 
-    $db = new mysqli('localhost', 'root', '', 'dys');
+    $db = new mysqli('localhost', 'root', 'root', 'dys');
     if ($db->connect_errno) {
         die("Verbindung fehlgeschlagen: " . $db->connect_error);
     }

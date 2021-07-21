@@ -6,7 +6,7 @@ if ($_REQUEST["term2"] == "Geschwindigkeit") {
         $uebergang = $_REQUEST["term"];
         $ip = getenv('REMOTE_ADDR');
 
-        $db = new mysqli('localhost', 'root', '', 'dys');
+        $db = new mysqli('localhost', 'root', 'root', 'dys');
         if ($db->connect_errno) {
             die("Verbindung fehlgeschlagen: " . $db->connect_error);
         }
@@ -32,7 +32,7 @@ if ($_REQUEST["term2"] == "Geschwindigkeit") {
         $uebergang = $_REQUEST["term"];
         $ip = getenv('REMOTE_ADDR');
 
-        $db = new mysqli('localhost', 'root', '', 'dys');
+        $db = new mysqli('localhost', 'root', 'root', 'dys');
         if ($db->connect_errno) {
             die("Verbindung fehlgeschlagen: " . $db->connect_error);
         }
