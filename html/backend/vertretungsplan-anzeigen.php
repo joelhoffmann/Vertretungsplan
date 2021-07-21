@@ -26,7 +26,7 @@ function checkDS($zeile, $db, $db_erg, $datum) //Prüfen auf Doppelstunden...fun
         if ($db_erg2->num_rows) {
             $zeile2 = mysqli_fetch_array($db_erg2, MYSQLI_ASSOC);
             echo "<section class='eintrag'>";
-            echo "<b>" . (int)$zeile2['Stunde'] - 1 . "/" . (int)$zeile2['Stunde'] . ". Stunde<br></b>";
+            echo "<b>" . ((int)$zeile2['Stunde'] - 1) . "/" . (int)$zeile2['Stunde'] . ". Stunde<br></b>";
             return "true";
         } else {
             echo "<section class='eintrag'>";
