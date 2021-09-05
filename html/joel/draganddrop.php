@@ -1,5 +1,6 @@
 <body>
-  <span id="submit-lbl" name="submit" style="visibility: hidden;"><a href="#"></a></span>
+    
+  <span id="submit-lbl" name="submit" ><a href="#"></a></span>
 </body>
 
 <style>
