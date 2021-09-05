@@ -121,9 +121,11 @@
 
             <label for="fileToUpload" id="upload-lbl">Click to choose file</label>
             <input type="file" id="fileToUpload" name="fileToUpload" onchange="changeEventHandler(event);" hidden />
-
+            <!--
             <label for="submit-btn" id="submit-lbl" style="visibility: hidden;">Upload</label>
             <input type="submit" name="submit" id="submit-btn" hidden>
+-->
+            <span id="submit-lbl" name="submit" style="visibility: hidden;"><a href="#"></a></span>
         </form>
 
     </div>
