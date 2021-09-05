@@ -1,16 +1,13 @@
 <?php
+//könnte noch zusammengefasst werden
+include '../backend/vertretungsplan-anzeigen.php';
+$db = dbConnect();
 
 if ($_REQUEST["term2"] == "Geschwindigkeit") {
 
     if ($_REQUEST["term"]) {
         $uebergang = $_REQUEST["term"];
         $ip = getenv('REMOTE_ADDR');
-
-        $db = new mysqli('localhost', 'root', 'root', 'dys');
-        if ($db->connect_errno) {
-            die("Verbindung fehlgeschlagen: " . $db->connect_error);
-        }
-        mysqli_set_charset($db, "utf8");
 
         if (mysqli_query($db, "SELECT * FROM `settings` WHERE `IP` LIKE '$ip' ")->num_rows) {
             $eintrag = "UPDATE `settings` SET `E2`='$uebergang' WHERE `IP` LIKE '$ip'";
@@ -31,12 +28,6 @@ if ($_REQUEST["term2"] == "Geschwindigkeit") {
     if ($_REQUEST["term"]) {
         $uebergang = $_REQUEST["term"];
         $ip = getenv('REMOTE_ADDR');
-
-        $db = new mysqli('localhost', 'root', 'root', 'dys');
-        if ($db->connect_errno) {
-            die("Verbindung fehlgeschlagen: " . $db->connect_error);
-        }
-        mysqli_set_charset($db, "utf8");
 
         if (mysqli_query($db, "SELECT * FROM `settings` WHERE `IP` LIKE '$ip' ")->num_rows) {
             $eintrag = "UPDATE `settings` SET `E1`='$uebergang' WHERE `IP` LIKE '$ip'";

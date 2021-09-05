@@ -8,13 +8,12 @@
     <meta name="author" content="Joel Hoffmann">
     <meta name="author" content="Simon Krieger">
 
-    <link rel="stylesheet" href="einstellungs.css">
+    <link rel="stylesheet" href="einstellungen.css">
     <script language="javascript" type="text/javascript" src="../js/setti.js"></script>
 
-    <title>Document</title>
+    <title>Vertretungsplan Admin</title>
     <?php
     include '../backend/vertretungsplan-anzeigen.php';
-
     $db = dbConnect();
     $ip = getenv('REMOTE_ADDR');
     if (mysqli_query($db, "SELECT * FROM `settings` WHERE `IP` LIKE '$ip' ")->num_rows) {
@@ -24,7 +23,6 @@
         $delay = $zeile['E1'];
         $speed = $zeile['E2'];
     }
-
     ?>
 
 </head>
@@ -43,10 +41,10 @@
                     term2: wertTyp
                 }).done(function(data) {
                     resultDropdown.html(data);
-                $(function() {
-                    setTimeout(function() {
-                        $(".status").replaceWith("</br>");
-                    }, 2000);
+                    $(function() {
+                        setTimeout(function() {
+                            $(".status").replaceWith("</br>");
+                        }, 2000);
                     });
                 });
             }
@@ -65,22 +63,47 @@
                 }).done(function(data) {
                     resultDropdown.html(data);
                     $(function() {
-                    setTimeout(function() {
-                        $(".status2").replaceWith("</br>");
-                    }, 2000);
+                        setTimeout(function() {
+                            $(".status2").replaceWith("</br>");
+                        }, 2000);
                     });
                 });
             }
         });
 
+        $('.gitpull').click(function() {
+            $.ajax({
+                type: "POST",
+                url: "../backend/gitpull.php"
+            }).done(function(data) {
+                console.log("Pulled from Git");
+                console.log(data);
+            });
+        });
+    }
+</script>
 
-
+<script>
+    function changeEventHandler(event) {
+        var fullPath = document.getElementById('fileToUpload').value;
+        if (fullPath) {
+            var startIndex = (fullPath.indexOf('\\') >= 0 ? fullPath.lastIndexOf('\\') : fullPath.lastIndexOf('/'));
+            var filename = fullPath.substring(startIndex);
+            if (filename.indexOf('\\') === 0 || filename.indexOf('/') === 0) {
+                filename = filename.substring(1);
+            }
+            //alert(filename);
+        }
+        document.getElementById('submit-lbl').style.visibility = 'visible';
+        document.getElementById('upload-lbl').innerHTML = filename;
+        document.getElementById('upload-lbl').style.backgroundColor = "green";
+        //alert('Test');
     }
 </script>
 
 <body style="margin: 0;">
     <nav>
-        <header>Admin-Navigation</header>
+        <header>Admin-Panel</header>
         <section class="menu">
             <a class="menu-link text-underlined" onclick="showDiv('1')">#Eintrag</a>
             <a class="menu-link text-underlined" onclick="showDiv('2')">#Nachrichten</a>
@@ -93,27 +116,16 @@
 
     <div class="box" id="1" style="display:none;">
         <h3>Eintrag</h3>
-        <!--Tabelle muss noch besser dargestellt werden !!IMPORTANT!!-->
-        <form action="new_ereignis.php" method="post">
 
-            <label for="EreignisTyp">Ereignis-Typ:</label>
-            </br>
-            <input id="EreignisTyp" name="Ereignis_Typ">
-            </br>
-            <label for="date">Datum:</label>
-            </br>
-            <input id="date" name="Datum" type="date" data-date="" data-date-format="DD MMMM YYYY" value="<?php echo date("Y-m-d"); ?>" style="font-size: larger;">
-            </br>
-            <label for="class">Klasse:</label>
-            </br>
-            <input id="class" name="Klasse">
-            </br>
-            <label for="content">Inhalt:</label>
-            </br>
-            <input id="content" name="Inhalt">
-            </br>
-            <button>Fertig</button>
+        <form action="../backend/upload.php" method="post" enctype="multipart/form-data">
+
+            <label for="fileToUpload" id="upload-lbl">Click to choose file</label>
+            <input type="file" id="fileToUpload" name="fileToUpload" onchange="changeEventHandler(event);" hidden />
+
+            <label for="submit-btn" id="submit-lbl" style="visibility: hidden;">Upload</label>
+            <input type="submit" name="submit" id="submit-btn" hidden>
         </form>
+
     </div>
     <div class="box" id="2" style="display:none;">
         <h3>Nachrichten</h3>
@@ -123,6 +135,7 @@
             </br>
             <input id="Nachricht" name="Nachricht">
             </br>
+
             <label for="date">Datum</label>
             </br>
             <input id="date" name="Datum" type="date" data-date="" data-date-format="DD MMMM YYYY" value="<?php echo date("Y-m-d"); ?>" style="font-size: larger;">
@@ -144,24 +157,26 @@
     <div class="box" id="3" style="display:none;">
         <h3>Extra Nachrichten</h3>
         <form action="new_nachricht.php" method="post">
-
             <label for="Nachricht">Titel</label>
             </br>
             <input id="Nachricht" name="Nachricht">
             </br>
+
             <label for="Nachricht">Text</label>
             </br>
             <input id="Nachricht" name="Nachricht">
             </br>
+
             <label for="Bild">Bild</label>
             </br>
             <input id="Bild" name="Bild" type="file">
             </br>
+
             <label for="date">Datum</label>
             </br>
             <input id="date" name="Datum" type="date" data-date="" data-date-format="DD MMMM YYYY" value="<?php echo date("Y-m-d"); ?>" style="font-size: larger;">
-
             </br>
+
             <label for="Uhrzeit">Uhrzeit</label>
             <!--Uhrzeit muss noch gemacht werden-->
             </br>
@@ -217,15 +232,35 @@
                     <div class="status2"></br></div>
                 </div>
             </div>
-            <a class="grid-item grid-item-5" href="../backend/updateDB.php">Update Database</a>
+            <a class="grid-item grid-item-5" onclick="showDiv('1')">Update Database</a>
             <a class="grid-item grid-item-7" href="../frontend/vertretungsplan.php">Vertretungsplan</a>
+            <a class="grid-item grid-item-7" href="../backend/gitpull.php">Git Pull</a>
+            <div class="grid-item grid-item-1 span-2">Color
+                <div id="Color">
+                    </br>
+                    <label for="MainBackgroundColor">MainBackgroundColor</label>
+                    <input type="color" name="MainBackgroundColor">
 
+                    <label for="InnerMainBox">InnerMainBox</label>
+                    <input type="color" name="InnerMainBox">
+
+                    <label for="InnerBoxBackgroundColor">InnerBoxBackgroundColor</label>
+                    <input type="color" name="InnerBoxBackgroundColor">
+
+                    <label for="BoxBackgroundColor">BoxBackgroundColor</label>
+                    <input type="color" name="BoxBackgroundColor">
+
+                    <label for="BoxTextColor">BoxTextColor</label>
+                    <input type="color" name="BoxTextColor">
+
+
+                </div>
+            </div>
         </div>
-
 
     </div>
     <script>
-        showDiv('4');
+        showDiv('5');
     </script>
 </body>
 

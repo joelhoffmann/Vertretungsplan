@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="refresh" content=""><!--Refresh Intervall muss noch eingestellt werden-->
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
     <meta name="author" content="Joel Hoffmann">
     <meta name="author" content="Simon Krieger">
@@ -64,11 +65,11 @@
 
         function startTime() {
             var today = new Date();
-            var h = today.getHours();
-            var m = today.getMinutes();
-            m = checkTime(m);
+            var hours = today.getHours();
+            var minutes = today.getMinutes();
+            minutes = checkTime(minutes);
             document.getElementById('Uhrzeit').innerHTML =
-                h + ":" + m;
+                hours + ":" + minutes;
             var t = setTimeout(startTime, 1000);
         }
 
@@ -78,6 +79,14 @@
             }; // add zero in front of numbers < 10
             return i;
         }
+
+
+        var style = getComputedStyle(document.documentElement);
+        var MainBackgroundColor = style.getPropertyValue('--main-bg-color');
+        var InnerMainBox = style.getPropertyValue('--innerMain-box');
+        var InnerBoxBackgroundColor = style.getPropertyValue('--innerbox-bg-color');
+        var BoxBackgroundColor = style.getPropertyValue('--box-bg-color');
+        var BoxTextColor = style.getPropertyValue('--box-text-color');
     </script>
 </head>
 
@@ -160,3 +169,5 @@
 </body>
 
 </html>
+
+
