@@ -8,7 +8,7 @@
     <meta name="author" content="Joel Hoffmann">
     <meta name="author" content="Simon Krieger">
 
-    <link rel="stylesheet" href="einstellungen.css">
+    <link rel="stylesheet" href="settings.css">
     <script language="javascript" type="text/javascript" src="../js/setti.js"></script>
 
     <title>Vertretungsplan Admin</title>
@@ -96,7 +96,8 @@
         }
         document.getElementById('submit-lbl').style.visibility = 'visible';
         document.getElementById('upload-lbl').innerHTML = filename;
-        document.getElementById('upload-lbl').style.backgroundColor = "green";
+        //document.getElementById('upload-lbl').style.backgroundColor = "green";
+        
         //alert('Test');
     }
 </script>
@@ -105,28 +106,23 @@
     <nav>
         <header>Admin-Panel</header>
         <section class="menu">
-            <a class="menu-link text-underlined" onclick="showDiv('1')">#Eintrag</a>
+            <a class="menu-link text-underlined" onclick="showDiv('1')">#UPLOAD</a>
             <a class="menu-link text-underlined" onclick="showDiv('2')">#Nachrichten</a>
             <a class="menu-link text-underlined" onclick="showDiv('3')">#Extra Nachrichten</a>
-            <a class="menu-link text-underlined" onclick="showDiv('4')">#User</a>
+            <a class="menu-link text-underlined" onclick="showDiv('4')" hidden>#User</a>
             <a class="menu-link text-underlined" onclick="showDiv('5')">#System</a>
 
         </section>
     </nav>
 
     <div class="box" id="1" style="display:none;">
-        <h3>Eintrag</h3>
+        <h3>UPLOAD FILES FOR REPRESENTATION PLAN</h3>
 
-        <form action="../backend/upload.php" method="post" enctype="multipart/form-data">
+        <form action="../backend/upload.php" method="post" enctype="multipart/form-data" id="form-upl">
 
             <label for="fileToUpload" id="upload-lbl">Click to choose file</label>
             <input type="file" id="fileToUpload" name="fileToUpload" onchange="changeEventHandler(event);" hidden />
-            <!--
-            <label for="submit-btn" id="submit-lbl" style="visibility: hidden;">Upload</label>
-            <input type="submit" name="submit" id="submit-btn" hidden>
--->
-            <span id="submit-lbl" name="submit" style="visibility: hidden;"><a href="#"></a></span>
-            peter
+            <button id="submit-lbl" type="submit" name="submit" class="custom-btn btn-15" style="visibility: hidden;">UPLOAD</button>
         </form>
 
     </div>
@@ -159,10 +155,10 @@
     </div>
     <div class="box" id="3" style="display:none;">
         <h3>Extra Nachrichten</h3>
-        <form action="new_nachricht.php" method="post">
-            <label for="Nachricht">Titel</label>
+        <form action="new_extra_nachricht.php" method="post">
+            <label for="Titel">Titel</label>
             </br>
-            <input id="Nachricht" name="Nachricht">
+            <input id="Titel" name="Titel">
             </br>
 
             <label for="Nachricht">Text</label>
@@ -175,15 +171,14 @@
             <input id="Bild" name="Bild" type="file">
             </br>
 
-            <label for="date">Datum</label>
+            <label for="date-A">Datum - Anfang</label>
             </br>
-            <input id="date" name="Datum" type="date" data-date="" data-date-format="DD MMMM YYYY" value="<?php echo date("Y-m-d"); ?>" style="font-size: larger;">
+            <input id="date-A" name="date-A" type="date" data-date="" data-date-format="DD MMMM YYYY" value="<?php echo date("Y-m-d"); ?>" style="font-size: larger;">
             </br>
 
-            <label for="Uhrzeit">Uhrzeit</label>
-            <!--Uhrzeit muss noch gemacht werden-->
+            <label for="date-B">Datum - Ende</label>
             </br>
-            <input id="Uhrzeit" name="Uhrzeit" type="time" value="<?php echo date("H:i"); ?>" style="font-size: larger;">
+            <input id="date-B" name="date-B" type="date" data-date="" data-date-format="DD MMMM YYYY" value="<?php echo date("Y-m-d"); ?>" style="font-size: larger;">
             </br>
 
             <label for="prio">Priorität</label>
@@ -263,7 +258,7 @@
 
     </div>
     <script>
-        showDiv('5');
+        showDiv('1');
     </script>
 </body>
 
