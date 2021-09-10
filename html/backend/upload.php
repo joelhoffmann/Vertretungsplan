@@ -1,4 +1,3 @@
-
 <?php
 
 include '../backend/vertretungsplan-anzeigen.php';

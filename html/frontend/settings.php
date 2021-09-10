@@ -16,8 +16,8 @@
     include '../backend/vertretungsplan-anzeigen.php';
     $db = dbConnect();
     $ip = getenv('REMOTE_ADDR');
-    if (mysqli_query($db, "SELECT * FROM `settings` WHERE `IP` LIKE '$ip' ")->num_rows) {
-        $eintrag = "SELECT * FROM `settings` WHERE `IP` LIKE '$ip'"; //Ist da noch ein Sinn vorhanden?!?!?!
+    if (mysqli_query($db, "SELECT * FROM `settings`")->num_rows) {
+        $eintrag = "SELECT * FROM `settings`"; //Ist da noch ein Sinn vorhanden?!?!?!
         $db_erg = mysqli_query($db, $eintrag);
         $zeile = mysqli_fetch_array($db_erg, MYSQLI_BOTH);
         $delay = $zeile['E1'];
@@ -134,7 +134,7 @@
     </div>
     <div class="box" id="2" style="display:none;">
         <h3>Nachrichten</h3>
-        <form action="new_nachricht.php" method="post">
+        <form action="../backend/new_nachricht.php" method="post">
 
             <label for="Nachricht">Nachricht</label>
             </br>
@@ -146,7 +146,7 @@
             <input id="date" name="Datum" type="date" data-date="" data-date-format="DD MMMM YYYY" value="<?php echo date("Y-m-d"); ?>" style="font-size: larger;">
 
             </br>
-            <label for="Uhrzeit">Uhrzeit</label>
+            <label for="Uhrzeit">Gültig bis</label>
             <!--Uhrzeit muss noch gemacht werden-->
             </br>
             <input id="Uhrzeit" name="Uhrzeit" type="time" value="<?php echo date("H:i"); ?>" style="font-size: larger;">
@@ -279,7 +279,7 @@
 
     </div>
     <script>
-        showDiv('5');
+        showDiv('2');
     </script>
 </body>
 

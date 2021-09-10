@@ -22,15 +22,11 @@
     $delay = 1000; //default delay
     $speed = 2; //default speed
     $db = dbConnect();
-    //$ip = getenv('REMOTE_ADDR');
-    //if (mysqli_query($db, "SELECT * FROM `settings` WHERE `IP` LIKE '$ip' ")->num_rows) {
     $eintrag = "SELECT * FROM `settings`";
-    //$eintrag = "SELECT * FROM `settings` WHERE `IP` LIKE '$ip'"; //Ist da noch ein Sinn vorhanden?!?!?!
     $db_erg = mysqli_query($db, $eintrag);
     $zeile = mysqli_fetch_array($db_erg, MYSQLI_BOTH);
     $delay = $zeile['E1'];
     $speed = $zeile['E2'];
-    //}
 
     ?>
     <script>
@@ -111,12 +107,13 @@
 
         <!--Einträge morgen-->
         <article class="innerMain" id="1" style="display:none;">
-            <header>Morgen</header>
+            <header>Nächster Tag</header>
             <section class="outerBox" id="scrollarea2">
                 <?php
                 $morgen = date('Y-m-d', strtotime('now + 1 day'));
                 $db = dbConnect();
                 setEntry($db, $morgen);
+                //TODO: must implement to check if morgen exists in file, if not go one day further til on day is found.
                 mysqli_close($db);
                 ?>
             </section>

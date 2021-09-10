@@ -1,5 +1,4 @@
-
-    <?php
+<?php
     include '../backend/vertretungsplan-anzeigen.php';
     $db = dbConnect();
 
