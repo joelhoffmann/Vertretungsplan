@@ -152,8 +152,8 @@ h3 {
 }
 
 .span-3 {
-    grid-column-end: span 3;
-    grid-row-end: span 4;
+    grid-column-end: span 2;
+    grid-row-end: span 2;
 }
 
 #Bild,
@@ -188,7 +188,7 @@ h3 {
     margin: 10px 0 0 10px;
     width: 100%;
     float: left;
-    justify-content: center;
+    text-align: center;
 }
 
 #upload-lbl {

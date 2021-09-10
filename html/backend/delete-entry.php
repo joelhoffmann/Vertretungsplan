@@ -11,15 +11,8 @@
 <body>
 
     <?php
-    
-
-
-
-    $db = new mysqli('localhost', 'root', 'root', 'dys');
-    if ($db->connect_errno) {
-        die("Verbindung fehlgeschlagen: " . $db->connect_error);
-    }
-    mysqli_set_charset($db, "utf8");
+    include '../backend/vertretungsplan-anzeigen.php';
+    $db = dbConnect();
 
     //$anzahl = mysqli_fetch_array(mysqli_query($db, "SELECT MAX(EID) FROM ereignis"))[0] + 1;
 

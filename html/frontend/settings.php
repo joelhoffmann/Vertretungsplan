@@ -23,6 +23,17 @@
         $delay = $zeile['E1'];
         $speed = $zeile['E2'];
     }
+
+    $db_erg = mysqli_query($db, "SELECT * FROM `colorlayout` WHERE 1");
+    $zeile = mysqli_fetch_array($db_erg, MYSQLI_BOTH);
+
+    $MainBackgroundColor = $zeile['F1'];
+    $InnerMainBox = $zeile['F2'];
+    $InnerBoxBackgroundColor = $zeile['F3'];
+    $BoxBackgroundColor = $zeile['F4'];
+    $BoxTextColor = $zeile['F5'];
+
+
     ?>
 
 </head>
@@ -81,9 +92,7 @@
             });
         });
     }
-</script>
 
-<script>
     function changeEventHandler(event) {
         var fullPath = document.getElementById('fileToUpload').value;
         if (fullPath) {
@@ -92,13 +101,10 @@
             if (filename.indexOf('\\') === 0 || filename.indexOf('/') === 0) {
                 filename = filename.substring(1);
             }
-            //alert(filename);
         }
         document.getElementById('submit-lbl').style.visibility = 'visible';
         document.getElementById('upload-lbl').innerHTML = filename;
-        //document.getElementById('upload-lbl').style.backgroundColor = "green";
-        
-        //alert('Test');
+        document.getElementById('Bild').innerHTML = filename;
     }
 </script>
 
@@ -116,13 +122,13 @@
     </nav>
 
     <div class="box" id="1" style="display:none;">
-        <h3>UPLOAD FILES FOR REPRESENTATION PLAN</h3>
+        <h3>Hochladen</h3>
 
         <form action="../backend/upload.php" method="post" enctype="multipart/form-data" id="form-upl">
 
-            <label for="fileToUpload" id="upload-lbl">Click to choose file</label>
+            <label for="fileToUpload" id="upload-lbl">Klicken, um eine Datei auszuwählen</label>
             <input type="file" id="fileToUpload" name="fileToUpload" onchange="changeEventHandler(event);" hidden />
-            <button id="submit-lbl" type="submit" name="submit" class="custom-btn btn-15" style="visibility: hidden;">UPLOAD</button>
+            <button id="submit-lbl" type="submit" name="submit" class="custom-btn btn-15" style="visibility: hidden; margin-top: 10px;">Hochladen</button>
         </form>
 
     </div>
@@ -155,7 +161,7 @@
     </div>
     <div class="box" id="3" style="display:none;">
         <h3>Extra Nachrichten</h3>
-        <form action="new_extra_nachricht.php" method="post">
+        <form action="../backend/new_extra_nachricht.php" method="post">
             <label for="Titel">Titel</label>
             </br>
             <input id="Titel" name="Titel">
@@ -166,9 +172,10 @@
             <input id="Nachricht" name="Nachricht">
             </br>
 
-            <label for="Bild">Bild</label>
+            Bild
             </br>
-            <input id="Bild" name="Bild" type="file">
+            <label for="fileToUpload" id="Bild">Klicken, um eine Datei auszuwählen</label>
+            <input type="file" id="fileToUpload" name="fileToUpload" onchange="changeEventHandler(event);" hidden />
             </br>
 
             <label for="date-A">Datum - Anfang</label>
@@ -213,6 +220,41 @@
     <div id="5" style="display:none;">
         <p class="u-text u-text-8">
         <div class="grid-layout">
+            <div class="grid-item grid-item-1 span-3">Color
+                <div id="Color">
+                    </br>
+                    <form action="../backend/changeColor.php" method="post">
+                        <label for="MainBackgroundColor">Haupt hintergrund</label>
+                        </br>
+                        <input type="color" name="MainBackgroundColor" value="<?php echo $MainBackgroundColor; ?>">
+                        </br>
+
+                        <label for="InnerMainBox">Main boxen</label>
+                        </br>
+                        <input type="color" name="InnerMainBox" value="<?php echo $InnerMainBox; ?>">
+                        </br>
+
+                        <label for="InnerBoxBackgroundColor">Mainboxen hintergrund</label>
+                        </br>
+                        <input type="color" name="InnerBoxBackgroundColor" value="<?php echo $InnerBoxBackgroundColor; ?>">
+                        </br>
+
+                        <label for="BoxBackgroundColor">Boxen hintergrund</label>
+                        </br>
+                        <input type="color" name="BoxBackgroundColor" value="<?php echo $BoxBackgroundColor; ?>">
+                        </br>
+
+                        <label for="BoxTextColor">Boxen schriftfarbe</label>
+                        </br>
+                        <input type="color" name="BoxTextColor" value="<?php echo $BoxTextColor; ?>">
+                        </br>
+
+                        <button type="submit">submit</button>
+
+                    </form>
+
+                </div>
+            </div>
             <div class="grid-item grid-item-1 span-2">Geschwindigkeit
                 <div id="Geschwindigkeit">
                     </br>
@@ -233,32 +275,11 @@
             <a class="grid-item grid-item-5" onclick="showDiv('1')">Update Database</a>
             <a class="grid-item grid-item-7" href="../frontend/vertretungsplan.php">Vertretungsplan</a>
             <a class="grid-item grid-item-7" href="../backend/gitpull.php">Git Pull</a>
-            <div class="grid-item grid-item-1 span-2">Color
-                <div id="Color">
-                    </br>
-                    <label for="MainBackgroundColor">MainBackgroundColor</label>
-                    <input type="color" name="MainBackgroundColor">
-
-                    <label for="InnerMainBox">InnerMainBox</label>
-                    <input type="color" name="InnerMainBox">
-
-                    <label for="InnerBoxBackgroundColor">InnerBoxBackgroundColor</label>
-                    <input type="color" name="InnerBoxBackgroundColor">
-
-                    <label for="BoxBackgroundColor">BoxBackgroundColor</label>
-                    <input type="color" name="BoxBackgroundColor">
-
-                    <label for="BoxTextColor">BoxTextColor</label>
-                    <input type="color" name="BoxTextColor">
-
-
-                </div>
-            </div>
         </div>
 
     </div>
     <script>
-        showDiv('1');
+        showDiv('5');
     </script>
 </body>
 

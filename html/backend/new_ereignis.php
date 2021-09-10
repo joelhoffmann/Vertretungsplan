@@ -11,19 +11,15 @@
 <body>
 
     <?php
+    include '../backend/vertretungsplan-anzeigen.php';
+    $db = dbConnect();
+
     $EreignisTyp = $_POST["Ereignis_Typ"];
     $Datum = $_POST["Datum"];
     $Klasse = $_POST["Klasse"];
     $Inhalt = $_POST["Inhalt"];
     $anzahl = 0;
-
-
-    $db = new mysqli('localhost', 'root', 'root', 'dys');
-    if ($db->connect_errno) {
-        die("Verbindung fehlgeschlagen: " . $db->connect_error);
-    }
-    mysqli_set_charset($db, "utf8");
-
+    
     $anzahl = mysqli_fetch_array(mysqli_query($db, "SELECT MAX(EID) FROM ereignis"))[0] + 1;
 
     $eintrag = "INSERT INTO ereignis(EID, EreignisTyp, Datum, Klasse, Inhalt) VALUES ('$anzahl', '$EreignisTyp','$Datum','$Klasse','$Inhalt');";

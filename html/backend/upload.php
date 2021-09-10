@@ -1,5 +1,10 @@
 
 <?php
+
+include '../backend/vertretungsplan-anzeigen.php';
+$db = dbConnect();
+
+
 //Delete all files in folder "Files"
 $files = glob('../Files/*'); // get all file names
 foreach ($files as $file) { // iterate files
@@ -49,16 +54,12 @@ if (!file_exists($fileName)) {
     echo "The file from above cannot be found!";
     exit;
 }
-$fp = fopen("../data/demo2.txt", "r");
+$fp = fopen("../data/".$fileName, "r");
 if (!$fp) {
     echo "Somehow the file cannot be opened! :)";
     exit;
 }
-$db = new mysqli('localhost', 'root', 'root', 'dys');
-if ($db->connect_errno) {
-    die("Verbindung fehlgeschlagen: " . $db->connect_error);
-}
-mysqli_set_charset($db, "utf8");
+
 mysqli_query($db, "DELETE FROM `vertretung_daten`");
 $index = 0;
 while (!feof($fp)) {

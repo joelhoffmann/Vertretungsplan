@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta http-equiv="refresh" content=""><!--Refresh Intervall muss noch eingestellt werden-->
+    <meta http-equiv="refresh" content="">
+    <!--Refresh Intervall muss noch eingestellt werden-->
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
     <meta name="author" content="Joel Hoffmann">
     <meta name="author" content="Simon Krieger">
@@ -17,17 +18,18 @@
 
     <?php
     include '../backend/vertretungsplan-anzeigen.php';
+    include '../backend/extra_nachricht_anzeigen.php';
     $delay = 1000; //default delay
     $speed = 2; //default speed
     $db = dbConnect();
     //$ip = getenv('REMOTE_ADDR');
     //if (mysqli_query($db, "SELECT * FROM `settings` WHERE `IP` LIKE '$ip' ")->num_rows) {
-    	$eintrag = "SELECT * FROM `settings`";
-    	//$eintrag = "SELECT * FROM `settings` WHERE `IP` LIKE '$ip'"; //Ist da noch ein Sinn vorhanden?!?!?!
-        $db_erg = mysqli_query($db, $eintrag);
-        $zeile = mysqli_fetch_array($db_erg, MYSQLI_BOTH);
-        $delay = $zeile['E1'];
-        $speed = $zeile['E2'];
+    $eintrag = "SELECT * FROM `settings`";
+    //$eintrag = "SELECT * FROM `settings` WHERE `IP` LIKE '$ip'"; //Ist da noch ein Sinn vorhanden?!?!?!
+    $db_erg = mysqli_query($db, $eintrag);
+    $zeile = mysqli_fetch_array($db_erg, MYSQLI_BOTH);
+    $delay = $zeile['E1'];
+    $speed = $zeile['E2'];
     //}
 
     ?>
@@ -49,7 +51,7 @@
             scrolling("scrollarea", $links, delay, speed);
 
         }, 5);
-        
+
         var rechts = setInterval(function() {
             //wenns ove isch
             if (document.getElementById("scrollarea2").scrollTop <= 0) {
@@ -80,7 +82,7 @@
             return i;
         }
 
-
+        //Needs to be redone properly in php
         var style = getComputedStyle(document.documentElement);
         var MainBackgroundColor = style.getPropertyValue('--main-bg-color');
         var InnerMainBox = style.getPropertyValue('--innerMain-box');
@@ -91,9 +93,6 @@
 </head>
 
 <body style="margin: 0;" onload="startTime()">
-
-
-
 
     <main>
 
@@ -124,6 +123,15 @@
         </article>
         <article class="innerMain" id="2" style="display:none;">
             <header>Wichtig</header>
+            </br>
+
+            <?php
+            $datum = date("Y-m-d");
+            $db = dbConnect();
+            showNews($db, $datum);
+            mysqli_close($db);
+            ?>
+
         </article>
     </main>
     <!--Uhrzeit-->
@@ -152,22 +160,20 @@
         //Abfrage welche News Art
         //Bei keiner Nachricht vorhanden darf die Funktion nicht ausgeführt werden
         ?>
-        /*
-                var Switch = setInterval(function() {
-                    if (document.getElementById('1').style.display == "block") {
-                        document.getElementById('1').style.display = "none";
-                        document.getElementById('2').style.display = "block";
-                    } else {
-                        document.getElementById('1').style.display = "block";
-                        document.getElementById('2').style.display = "none";
-                    }
+/*
+        var Switch = setInterval(function() {
+            if (document.getElementById('1').style.display == "block") {
+                document.getElementById('1').style.display = "none";
+                document.getElementById('2').style.display = "block";
+            } else {
+                document.getElementById('1').style.display = "block";
+                document.getElementById('2').style.display = "none";
+            }
 
-                }, 3000);//Zeit muss noch auf 30 Sekunden gestellt werden
-        */
+        }, 3000); //Zeit muss noch auf 30 Sekunden gestellt werden
+*/
         test(1);
     </script>
 </body>
 
 </html>
-
-

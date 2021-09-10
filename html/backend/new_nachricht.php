@@ -8,17 +8,14 @@
 </head>
 <body>
 <?php
+    include '../backend/vertretungsplan-anzeigen.php';
+    $db = dbConnect();
+
     $Inhalt = $_POST["Nachricht"];
     $Uhrzeit = $_POST["Uhrzeit"];
     $Datum = $_POST["Datum"];
     $Prio = $_POST["prio"];
     $anzahl = 0;
-
-    $db = new mysqli('localhost', 'root', 'root', 'dys');
-    if ($db->connect_errno) {
-        die("Verbindung fehlgeschlagen: " . $db->connect_error);
-    }
-    mysqli_set_charset($db, "utf8");
 
     $anzahl = mysqli_fetch_array(mysqli_query($db, "SELECT MAX(NID) FROM news"))[0] + 1;
 

@@ -25,6 +25,11 @@
 
     if ($erg->num_rows > 0) {
         $zeile = mysqli_fetch_array($erg, MYSQLI_ASSOC);
+        //if(password_verify($password, $zeile['Passwort'])){
+        //    header('locatoin: ../frontend/settings.php');
+        //}else{
+        //    echo" Anmeldung Fehlgeschlagen";
+        //}
         if ($zeile['Passwort'] == $password) {
             header('location: ../frontend/settings.php');
         } else {
