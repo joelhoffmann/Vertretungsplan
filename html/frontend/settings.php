@@ -133,28 +133,21 @@
 
     </div>
     <div class="box" id="2" style="display:none;">
-        <h3>Nachrichten</h3>
         <form action="../backend/new_nachricht.php" method="post">
 
-            <label for="Nachricht">Nachricht</label>
+            <h3>Nachricht</h3>
+            <input id="Nachricht" name="Nachricht" placeholder="Nachricht eintippen">
             </br>
-            <input id="Nachricht" name="Nachricht">
-            </br>
-
+            <h3>Gültig bis</h3>
             <label for="date">Datum</label>
             </br>
             <input id="date" name="Datum" type="date" data-date="" data-date-format="DD MMMM YYYY" value="<?php echo date("Y-m-d"); ?>" style="font-size: larger;">
 
             </br>
-            <label for="Uhrzeit">Gültig bis</label>
+            <label for="Uhrzeit">Uhrzeit</label>
             <!--Uhrzeit muss noch gemacht werden-->
             </br>
             <input id="Uhrzeit" name="Uhrzeit" type="time" value="<?php echo date("H:i"); ?>" style="font-size: larger;">
-            </br>
-
-            <label for="prio">Priorität</label>
-            </br>
-            <input type="range" min="0" max="5" id="prio" name="prio">
             </br>
             <button>Fertig</button>
         </form>

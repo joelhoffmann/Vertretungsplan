@@ -29,9 +29,9 @@ if ($_FILES["fileToUpload"]["size"] > 5000000000) {
 }
 
 // Allow certain file formats
-if($FileType != "txt") {
-  echo "Sorry, only txt files are allowed.";
-  $uploadOk = 0;
+if ($FileType != "txt") {
+    echo "Sorry, only txt files are allowed.";
+    $uploadOk = 0;
 }
 
 // Check if $uploadOk is set to 0 by an error
@@ -47,14 +47,14 @@ if ($uploadOk == 0) {
 }
 //Upload file to DB
 
-$fileName = "../Files/".htmlspecialchars(basename($_FILES["fileToUpload"]["name"]));
+$fileName = "../Files/" . htmlspecialchars(basename($_FILES["fileToUpload"]["name"]));
 
 
 if (!file_exists($fileName)) {
     echo "The file from above cannot be found!";
     exit;
 }
-$fp = fopen("../data/".$fileName, "r");
+$fp = fopen("../data/" . $fileName, "r");
 if (!$fp) {
     echo "Somehow the file cannot be opened! :)";
     exit;
@@ -79,8 +79,6 @@ mysqli_query($db, "CREATE TABLE `vertretung_daten` (
     PRIMARY KEY (`Vertretungsnummer`)
   )");
 
-
-$index = 0;
 while (!feof($fp)) {
     //$zeile = fgets($fp);
     //echo "<tr><td>$zeile</td>";
@@ -135,14 +133,19 @@ while (!feof($fp)) {
             '$Vertretungsklasse',
             '$Vertretungsart')";
 
-        mysqli_query($db, $sql);
-        $index++;
+        if ((strpos($Vertretungsart, "L") !== false) == false) {
+            if ((strpos($Vertretungsart, "A") !== false) === false) {
+                if ((strpos($Vertretungsart, "S") !== false) === false) {
+                    if ((strpos($Vertretungsart, "B") !== false) === false) {
+                        mysqli_query($db, $sql);
+                    }
+                }
+            }
+        }
     }
 }
 
 mysqli_close($db);
 fclose($fp);
 
-header('location: ../frontend/settings.php');
-
-?> 
+//header('location: ../frontend/settings.php');

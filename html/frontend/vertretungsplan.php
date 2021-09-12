@@ -46,13 +46,8 @@
 
         function master() {
             startTime();
-            scroll(1, 2000);
+            scroll(2, 2000);
             test(2);
-
-            var today = new Date();
-            var date = today.getDate() + '.' + (String(today.getMonth() + 1)).padStart(2, '0') + '.' + String(today.getFullYear()).substr(-2);
-            document.getElementById('naechsterTag').innerHTML ="Nächster Tag, " + date;
-
         }
     </script>
 </head>
@@ -67,7 +62,7 @@
             <section class="outerBox" id="scrollarea1">
                 <?php
                 $db = dbConnect();
-                setEntry($db, date('Y-m-d'), 0);
+                setEntry($db, date('Y-m-d'), 0); //Heute muss immer Heute sein
                 mysqli_close($db);
                 ?>
             </section>
@@ -80,9 +75,13 @@
                 <?php
                 $db = dbConnect();
                 $morgen = date('Y-m-d', strtotime('now + 1 day'));
-                setEntry($db, $morgen, 0);
+                $newDate = setEntry($db, $morgen, 0);
                 mysqli_close($db);
                 ?>
+                <script>
+                    var change = "<?php echo $newDate; ?>";
+                    nextDay(change);
+                </script>
             </section>
         </article>
 
@@ -105,18 +104,46 @@
         <div id="Uhrzeit"></div>
     </section>
     <!--News-->
-    <section class="news" >
+    <section class="news">
         <header>News</header>
         <?php
         $db = dbConnect();
         $datum = date("Y-m-d");
+        $timestamp = time();
+        $uhrzeit = date("H:i", $timestamp);
+
         $eintrag = "SELECT * FROM `news` WHERE `Datum` LIKE '$datum'";
         $result = mysqli_query($db, $eintrag);
-        echo "<div id='marquee' class='marquee'><span>";
-        while ($inhalt = mysqli_fetch_array($result, MYSQLI_BOTH)) {
-            echo "!!! " . $inhalt["Datum"] . ":&emsp; " . $inhalt["Inhalt"] . " !!!" . "&emsp;&emsp;&emsp;"; //TODO: Datum muss noch schöner formatiert werden!!!
+
+        $stack = array();
+
+        while ($zeile = mysqli_fetch_array($result, MYSQLI_BOTH)) {
+            $start = strtotime($uhrzeit);
+            $end = strtotime($zeile['Uhrzeit']);
+            $diff = ($end - $start) / 60;
+
+            if ($diff <= 0) {
+                array_push($stack, $zeile['NID']);
+            }
         }
-        echo "</span></div>";
+
+        if (count($stack) > 0) {
+            for ($i = 0; $i < count($stack); $i++) {
+                mysqli_query($db, "DELETE FROM `news` WHERE `NID` = '$stack[$i]' ");
+            }
+        }
+
+
+        $eintrag = "SELECT * FROM `news` WHERE `Datum` LIKE '$datum'";
+        $result = mysqli_query($db, $eintrag);
+
+
+        //echo "<div id='marquee' class='marquee'><span>";
+        while ($zeile = mysqli_fetch_array($result, MYSQLI_BOTH)) {
+            echo '<marquee behavior="scroll" direction="left" speed="10" scrollamount="5">' . $zeile['Inhalt'] . '</marquee>';
+            //echo "test";
+        }
+        //echo "</span></div>";
         mysqli_close($db);
         ?>
 

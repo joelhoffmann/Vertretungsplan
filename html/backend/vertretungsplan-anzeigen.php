@@ -60,6 +60,7 @@ function checkDS($zeile, $db, $db_erg, $datum) //Prüfen auf Doppelstunden...fun
 
 function setEntry($db, $datum, $callback)
 {
+
     if ($callback >= 365) {
         echo "Out of DATA";
         return;
@@ -68,8 +69,14 @@ function setEntry($db, $datum, $callback)
         $db_erg = mysqli_query($db, $sql); //Ausführung
 
         if ($db_erg->num_rows == 0) {
-            $datum = date('Y-m-d', strtotime($datum . '+ 1 day'));
-            setEntry($db, $datum, $callback + 1);
+            $date = date("Y-m-d");
+            if (strpos($datum, $date) !== false) {
+                echo "test";
+            } else {
+
+                $datum = date('Y-m-d', strtotime($datum . '+ 1 day'));
+                return setEntry($db, $datum, $callback + 1);
+            }
         } else {
 
             $klassen = array(
@@ -87,6 +94,7 @@ function setEntry($db, $datum, $callback)
                 }
 
                 if ($db_erg->num_rows > 0) {
+
                     echo "<section class='innerBox'><h2>$klassen[$i]</h2><section class='ausfallendeStunden'>";
                     while ($zeile = mysqli_fetch_array($db_erg, MYSQLI_ASSOC)) {
                         $ende = "true";
@@ -104,7 +112,7 @@ function setEntry($db, $datum, $callback)
                                 }
 
                                 if ($zeile['Text_zur_Vertretung'] != null) {
-                                    echo $zeile['Text_zur_Vertretung'];
+                                    echo "<br>" . $zeile['Text_zur_Vertretung'];
                                 }
                             }
                         } else if ($zeile['Vertretungsart'] == "T") { //verlegt
@@ -184,17 +192,21 @@ function setEntry($db, $datum, $callback)
                             $ende = checkDS($zeile, $db, $db_erg, $datum);
                             if ($ende == "true") {
                                 echo "Entfall" . "<br>";
-                                echo "<s>" . $zeile['Fach'] . "</s> " . $zeile['Absenter_Lehrer'];
+                                echo "<s>" . $zeile['Fach'] . "</s> ";
                             }
                         } else if ($zeile['Vertretungsart'] == "P") { //Teil-Vertretung
                             echo "<h6>Teil-Vertretung</h6>";
-                        } else if ($zeile['Vertretungsart'] == "R") { //Raumverlegung ------------------------------------
+                        } else if ($zeile['Vertretungsart'] == "R") { //Raumvertretung ------------------------------------
                             $ende = checkDS($zeile, $db, $db_erg, $datum);
                             if ($ende == "true") {
                                 if ($zeile['Text_zur_Vertretung'] != null) {
                                     echo $zeile['Text_zur_Vertretung'] . "<br>";
                                 }
-                                echo "<s>" . $zeile['Raum'] . "</s> &#10132; " . $zeile['Vertretungsraum'] . "<br>";
+                                if ($zeile['Raum'] != null) {
+                                    echo "<s>" . $zeile['Raum'] . "</s> &#10132; " . $zeile['Vertretungsraum'] . "<br>";
+                                } else {
+                                    echo "Raumvertretung<br>" . $zeile['Vertretungsraum'] . "<br>";
+                                }
                             }
                         } else if ($zeile['Vertretungsart'] == "~") { //Lehrertausch
                             $ende = checkDS($zeile, $db, $db_erg, $datum);
@@ -214,6 +226,7 @@ function setEntry($db, $datum, $callback)
                     echo "</section></section>";
                 }
             }
+            return $callback;
         }
     }
 }
