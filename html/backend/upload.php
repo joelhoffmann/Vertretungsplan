@@ -49,6 +49,7 @@ if ($uploadOk == 0) {
 
 $fileName = "../Files/".htmlspecialchars(basename($_FILES["fileToUpload"]["name"]));
 
+
 if (!file_exists($fileName)) {
     echo "The file from above cannot be found!";
     exit;
@@ -59,7 +60,26 @@ if (!$fp) {
     exit;
 }
 
-mysqli_query($db, "DELETE FROM `vertretung_daten`");
+mysqli_query($db, "DROP TABLE `vertretung_daten`");
+
+mysqli_query($db, "CREATE TABLE `vertretung_daten` (
+    `Vertretungsnummer` int(11) NOT NULL,
+    `Datum` date NOT NULL,
+    `Stunde` varchar(50) NOT NULL,
+    `Absenter_Lehrer` varchar(50) NOT NULL,
+    `Vertretender_Lehrer` varchar(50) NOT NULL,
+    `Fach` varchar(50) NOT NULL,
+    `Vertretungsfach` varchar(50) NOT NULL,
+    `Raum` varchar(50) NOT NULL,
+    `Vertretungsraum` varchar(50) NOT NULL,
+    `Klasse(n)` varchar(50) NOT NULL,
+    `Text_zur_Vertretung` varchar(50) NOT NULL,
+    `Vertretungsklasse(n)` varchar(50) NOT NULL,
+    `Vertretungsart` varchar(11) NOT NULL,
+    PRIMARY KEY (`Vertretungsnummer`)
+  )");
+
+
 $index = 0;
 while (!feof($fp)) {
     //$zeile = fgets($fp);
@@ -125,4 +145,4 @@ fclose($fp);
 
 header('location: ../frontend/settings.php');
 
-?>
+?> 
