@@ -34,32 +34,57 @@
         var speed = "<?php echo $speed ?>";
         $links = 0;
         $rechts = 0;
+        //get bigger scrollarea
 
-        var links = setInterval(function() {
-            //wenns ove isch
-            if (document.getElementById("scrollarea").scrollTop <= 0) {
-                $links = 0;
-            }
-            //wenns unne isch
-            else if (document.getElementById("scrollarea").scrollTop + document.getElementById("scrollarea").clientHeight >= document.getElementById("scrollarea").scrollHeight) {
-                $links = 1;
-            }
-            scrolling("scrollarea", $links, delay, speed);
+        function scroll() {
+            if (document.getElementById("scrollarea1").scrollHeight > document.getElementById("scrollarea2").scrollHeight) {
+                //scrollarea1 master
+                $switch = 0;
+                var links = setInterval(function() {
+                    if (document.getElementById("scrollarea1").scrollTop + document.getElementById("scrollarea1").clientHeight >= document.getElementById("scrollarea1").scrollHeight) {
+                        console.log("isch unne");
+                        $switch = 1;
+                    }else if(document.getElementById("scrollarea1").scrollTop <= 0){
+                        $switch = 0;
+                    }
+                    if ($switch == 0) {
+                        document.getElementById("scrollarea1").scrollTop += 1;
+                        document.getElementById("scrollarea2").scrollTop += 1;
+                        console.log("+");
+                    }
+                    if ($switch == 1) {
+                        document.getElementById("scrollarea1").scrollTop -= 1;
+                        document.getElementById("scrollarea2").scrollTop -= 1;
+                        console.log("-");
+                    }
 
-        }, 5);
 
-        var rechts = setInterval(function() {
-            //wenns ove isch
-            if (document.getElementById("scrollarea2").scrollTop <= 0) {
-                $rechts = 0;
-            }
-            //wenns unne isch
-            else if (document.getElementById("scrollarea2").scrollTop + document.getElementById("scrollarea2").clientHeight >= document.getElementById("scrollarea2").scrollHeight) {
-                $rechts = 1;
-            }
-            scrolling("scrollarea2", $rechts, delay, speed);
+                }, 0);
 
-        }, 5);
+            } else {
+                //scrollarea2 master
+            }
+        }
+
+
+        /*
+                var links = setInterval(function() {
+                    //wenns ove isch
+
+                    console.log(document.getElementById("scrollarea1").scrollHeight);
+
+                    if (document.getElementById("scrollarea1").scrollTop <= 0) {
+                        $links = 0;
+                    }
+                    //wenns unne isch
+                    else if (document.getElementById("scrollarea1").scrollTop + document.getElementById("scrollarea1").clientHeight >= document.getElementById("scrollarea1").scrollHeight) {
+                        $links = 1;
+                    }
+                    scrolling("scrollarea1", $links, delay, speed);
+
+                }, 5);
+                */
+
 
         function startTime() {
             var today = new Date();
@@ -85,34 +110,39 @@
         var InnerBoxBackgroundColor = style.getPropertyValue('--innerbox-bg-color');
         var BoxBackgroundColor = style.getPropertyValue('--box-bg-color');
         var BoxTextColor = style.getPropertyValue('--box-text-color');
+
+        function master() {
+            startTime();
+            scroll();
+
+        }
     </script>
 </head>
 
-<body style="margin: 0;" onload="startTime()">
+<body style="margin: 0;" onload="master()">
 
     <main>
 
         <!--Einträge heute-->
         <article class="innerMain">
             <header><a onclick="test('1');">Heute</a></header>
-            <section class="outerBox" id="scrollarea">
+            <section class="outerBox" id="scrollarea1">
                 <?php
-                $datum = date("Y-m-d");
                 $db = dbConnect();
-                setEntry($db, $datum);
+                setEntry($db, date('Y-m-d'), 0);
                 mysqli_close($db);
                 ?>
             </section>
         </article>
 
-        <!--Einträge morgen-->
+        <!--Einträge Nächster Tag-->
         <article class="innerMain" id="1" style="display:none;">
             <header>Nächster Tag</header>
             <section class="outerBox" id="scrollarea2">
                 <?php
-                $morgen = date('Y-m-d', strtotime('now + 1 day'));
                 $db = dbConnect();
-                setEntry($db, $morgen);
+                $morgen = date('Y-m-d', strtotime('now + 1 day'));
+                setEntry($db, $morgen, 0);
                 //TODO: must implement to check if morgen exists in file, if not go one day further til on day is found.
                 mysqli_close($db);
                 ?>
@@ -157,18 +187,18 @@
         //Abfrage welche News Art
         //Bei keiner Nachricht vorhanden darf die Funktion nicht ausgeführt werden
         ?>
-/*
-        var Switch = setInterval(function() {
-            if (document.getElementById('1').style.display == "block") {
-                document.getElementById('1').style.display = "none";
-                document.getElementById('2').style.display = "block";
-            } else {
-                document.getElementById('1').style.display = "block";
-                document.getElementById('2').style.display = "none";
-            }
+        /*
+                var Switch = setInterval(function() {
+                    if (document.getElementById('1').style.display == "block") {
+                        document.getElementById('1').style.display = "none";
+                        document.getElementById('2').style.display = "block";
+                    } else {
+                        document.getElementById('1').style.display = "block";
+                        document.getElementById('2').style.display = "none";
+                    }
 
-        }, 3000); //Zeit muss noch auf 30 Sekunden gestellt werden
-*/
+                }, 3000); //Zeit muss noch auf 30 Sekunden gestellt werden
+        */
         test(1);
     </script>
 </body>

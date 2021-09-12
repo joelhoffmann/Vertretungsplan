@@ -12,3 +12,19 @@ function scrolling($input, $switch, $delay, $speed) {
     }
 
 }
+
+/*
+höhe des inhalts > div größe 
+größere Box ist der Master, andere muss auf den größeren warten
+.scrollheight gibt die höhe an.
+
+solange nach unten bis unten angekommen -> warten auf zweiten slider
+
+wenn beide unten 
+
+delay
+
+solange nach oben bis oben angekommen -> warten auf zweiten slider
+
+
+*/
