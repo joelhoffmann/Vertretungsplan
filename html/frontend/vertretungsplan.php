@@ -14,6 +14,7 @@
     <script language="javascript" type="text/javascript" src="../js/vertretung.js"></script>
     <script language="javascript" type="text/javascript" src="../js/setti.js"></script>
 
+
     <title>dys - display your school</title>
 
     <?php
@@ -49,6 +50,10 @@
             scroll(2, 2000);
             test(2);
         }
+    </script>
+
+
+
     </script>
 </head>
 
@@ -137,13 +142,9 @@
         $eintrag = "SELECT * FROM `news` WHERE `Datum` LIKE '$datum'";
         $result = mysqli_query($db, $eintrag);
 
-
-        //echo "<div id='marquee' class='marquee'><span>";
         while ($zeile = mysqli_fetch_array($result, MYSQLI_BOTH)) {
-            echo '<marquee behavior="scroll" direction="left" speed="10" scrollamount="5">' . $zeile['Inhalt'] . '</marquee>';
-            //echo "test";
+            echo '<marquee>' . $zeile['Inhalt'] . '</marquee>';
         }
-        //echo "</span></div>";
         mysqli_close($db);
         ?>
 
