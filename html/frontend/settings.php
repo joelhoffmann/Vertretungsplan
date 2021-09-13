@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="refresh" content="600000">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Joel Hoffmann">
     <meta name="author" content="Simon Krieger">
@@ -41,7 +42,7 @@
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script>
     window.onload = function() {
-        var input = document.getElementById("Geschwindigkeit");
+        var input = document.getElementById("Geschwindigkeit"); //Beide Funktionen werden nicht mehr verwendet
         input.addEventListener("keyup", function(event) {
             if (event.keyCode === 13) {
                 var inputVal = document.getElementById("inhalt").value;
@@ -86,15 +87,14 @@
             $.ajax({
                 type: "POST",
                 url: "../backend/gitpull.php"
-            }).done(function(data) {
+            }).done(function() {
                 console.log("Pulled from Git");
-                console.log(data);
             });
         });
     }
 
-    function changeEventHandler(event) {
-        var fullPath = document.getElementById('fileToUpload').value;
+    function changeEventHandler($id) {
+        var fullPath = document.getElementById($id).value;
         if (fullPath) {
             var startIndex = (fullPath.indexOf('\\') >= 0 ? fullPath.lastIndexOf('\\') : fullPath.lastIndexOf('/'));
             var filename = fullPath.substring(startIndex);
@@ -105,25 +105,55 @@
         document.getElementById('submit-lbl').style.visibility = 'visible';
         document.getElementById('upload-lbl').innerHTML = filename;
         document.getElementById('Bild').innerHTML = filename;
+
+        console.log('test');
+        $.ajax({
+            type: "POST",
+            data: {
+                parameter1: ''
+            },
+            url: "../backend/upload_image.php"
+        }).done(function() {
+            console.log('Done');
+
+        });
+
     }
+
+    function fileListener($in, $out) {
+        $(document).ready(function() {
+            $("#" + $in).keyup(function() {
+                // Getting the current value of textarea
+                var currentText = $(this).val();
+
+                // Setting the Div content
+                $("#" + $out).text(currentText);
+            });
+        });
+
+    }
+
+    fileListener("Titel", "vorschau_Title");
+    fileListener("Nachricht_EN", "vorschau_Text");
 </script>
 
 <body style="margin: 0;">
     <nav>
         <header>Admin-Panel</header>
         <section class="menu">
+            <!-- Menu könnte noch überarbeitet werden -->
             <a class="menu-link text-underlined" onclick="showDiv('1')">#UPLOAD</a>
             <a class="menu-link text-underlined" onclick="showDiv('2')">#Nachrichten</a>
             <a class="menu-link text-underlined" onclick="showDiv('3')">#Extra Nachrichten</a>
             <a class="menu-link text-underlined" onclick="showDiv('4')" hidden>#User</a>
+            <!--Kann noch entfernt werden-->
             <a class="menu-link text-underlined" onclick="showDiv('5')">#System</a>
 
         </section>
     </nav>
-
+    <!--Hochladen-->
     <div class="box" id="1" style="display:none;">
         <h3>Hochladen</h3>
-
         <form action="../backend/upload.php" method="post" enctype="multipart/form-data" id="form-upl">
 
             <label for="fileToUpload" id="upload-lbl">Klicken, um eine Datei auszuwählen</label>
@@ -132,6 +162,7 @@
         </form>
 
     </div>
+    <!--Neue Nachricht-->
     <div class="box" id="2" style="display:none;">
         <form action="../backend/new_nachricht.php" method="post">
 
@@ -152,25 +183,24 @@
             <button>Fertig</button>
         </form>
     </div>
+    <!--Extra Nachrichten-->
     <div class="box" id="3" style="display:none;">
         <h3>Extra Nachrichten</h3>
-        <form action="../backend/new_extra_nachricht.php" method="post">
+        <form action="../backend/new_extra_nachricht.php" method="post" enctype="multipart/form-data">
             <label for="Titel">Titel</label>
             </br>
-            <input id="Titel" name="Titel">
+            <input id="Titel" name="Titel" placeholder="Titel eintragen">
             </br>
 
-            <label for="Nachricht">Text</label>
+            <label for="Nachricht_EN">Text</label>
             </br>
-            <input id="Nachricht" name="Nachricht">
+            <input id="Nachricht_EN" name="Nachricht_EN" placeholder="Text eintragen">
             </br>
-
-            Bild
+            <label for="Bild">Bild</label>
             </br>
-            <label for="fileToUpload" id="Bild">Klicken, um eine Datei auszuwählen</label>
-            <input type="file" id="fileToUpload" name="fileToUpload" onchange="changeEventHandler(event);" hidden />
+            <label for="pictureToUpload" id="Bild">Klicken, um ein Bild auszuwählen</label>
+            <input type="file" id="pictureToUpload" name="pictureToUpload" onchange="changeEventHandler('pictureToUpload');" hidden />
             </br>
-
             <label for="date-A">Datum - Anfang</label>
             </br>
             <input id="date-A" name="date-A" type="date" data-date="" data-date-format="DD MMMM YYYY" value="<?php echo date("Y-m-d"); ?>" style="font-size: larger;">
@@ -181,16 +211,30 @@
             <input id="date-B" name="date-B" type="date" data-date="" data-date-format="DD MMMM YYYY" value="<?php echo date("Y-m-d"); ?>" style="font-size: larger;">
             </br>
 
-            <label for="prio">Priorität</label>
-            </br>
-            <input type="range" min="0" max="5" id="prio" name="prio">
-            </br>
             <button>Fertig</button>
         </form>
+        <script>
+            pictureToUpload.onchange = evt => {
+                const [file] = pictureToUpload.files
+                if (file) {
+                    vorschau_bild.src = URL.createObjectURL(file)
+                }
+            }
+        </script>
         <section class="vorschau">
+            <div id="vorschau_Title">
+                dddd
+            </div>
+            <div id="vorschau_Text">
+                ddd
+            </div>
+
+            <img id="vorschau_bild" src="#" style="max-width: 50%; max-height: 50%;" />
+
         </section>
         <span class="vorschauUnterschrift">Vorschau, ca. 85% der Originalgröße</span>
     </div>
+    <!--User Interface kann noch entfernt werden-->
     <div class="box" id="4" style="display:none;">
         <h3>User</h3>
         <form action="new_user.php" method="post">
@@ -213,9 +257,11 @@
             <button>Fertig</button>
         </form>
     </div>
+    <!--System-->
     <div id="5" style="display:none;">
         <p class="u-text u-text-8">
         <div class="grid-layout">
+            <!--Farben einstellen-->
             <div class="grid-item grid-item-1 span-3">Color
                 <div id="Color">
                     </br>
@@ -251,6 +297,7 @@
 
                 </div>
             </div>
+            <!--Geschwindigkeit, Delay und Update Database können entfernt werden-->
             <div class="grid-item grid-item-1 span-2">Geschwindigkeit
                 <div id="Geschwindigkeit">
                     </br>
@@ -268,8 +315,11 @@
                     <div class="status2"></br></div>
                 </div>
             </div>
+            <!-- Kann noch ausgebaut werden -->
             <a class="grid-item grid-item-5" onclick="showDiv('1')">Update Database</a>
+            <!-- Verweist auf den Vertretungsplan -->
             <a class="grid-item grid-item-7" href="../frontend/vertretungsplan.php">Vertretungsplan</a>
+            <!-- Ermöglicht einen Git Pull vom Repository zu machen -->
             <a class="grid-item grid-item-7" href="../backend/gitpull.php">Git Pull</a>
         </div>
 

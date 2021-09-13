@@ -141,11 +141,14 @@
 
         $eintrag = "SELECT * FROM `news` WHERE `Datum` LIKE '$datum'";
         $result = mysqli_query($db, $eintrag);
-
-        while ($zeile = mysqli_fetch_array($result, MYSQLI_BOTH)) {
-            echo '<marquee>' . $zeile['Inhalt'] . '</marquee>';
+        if ($result->num_rows > 0) {
+            echo '<marquee>';
+            while ($zeile = mysqli_fetch_array($result, MYSQLI_BOTH)) {
+                echo $zeile['Inhalt'] . '&emsp;&emsp;&emsp;&emsp;';
+            }
+            mysqli_close($db);
+            echo '</marquee>';
         }
-        mysqli_close($db);
         ?>
 
     </section>

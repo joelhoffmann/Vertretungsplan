@@ -1,6 +1,5 @@
 <?php
 include '../backend/vertretungsplan-anzeigen.php';
-
 $db = dbConnect();
 $target_dir = "../Pictures/";
 $target_file = $target_dir . basename($_FILES["pictureToUpload"]["name"]);
@@ -43,20 +42,3 @@ if ($uploadOk == 0) {
 //Upload file to DB
 
 $fileName = "../Pictures/" . htmlspecialchars(basename($_FILES["pictureToUpload"]["name"]));
-
-$Titel = $_POST["Titel"];
-$Text = $_POST["Nachricht_EN"];
-$date_A = $_POST["date-A"];
-$date_B = $_POST["date-B"];
-$anzahl = 0;
-
-$anzahl = mysqli_fetch_array(mysqli_query($db, "SELECT MAX(ID) FROM news_extra"))[0] + 1;
-
-$eintrag = "INSERT INTO `news_extra`(`ID`, `title`, `text`, `picture_location`, `date_start`, `date_end`) VALUES ('$anzahl','$Titel','$Text','$fileName','$date_A','$date_B'
-    )";
-
-$eintragen = mysqli_query($db, $eintrag);
-echo ("Test");
-//header('location: ../frontend/settings.php');
-
-mysqli_close($db);

@@ -161,12 +161,7 @@ h3 {
 #date-B,
 #Titel,
 #Uhrzeit,
-#prio,
-#Nachricht,
-#Username,
-#Passwort,
-#Passwort-wdh,
-#Email,
+#Nachricht_EN,
 #EreignisTyp,
 #date,
 #class,
@@ -180,19 +175,22 @@ h3 {
     box-sizing: border-box;
 }
 
-.vorschau{
-    width:43%;
+.vorschau {
+    width: 43%;
     height: 90%;
     background-color: #d5d1d1;
-    margin-top: -31%;
+    margin-top: -27%;
     margin-left: 56%;
     border-radius: 10px;
 }
 
-.vorschauUnterschrift{
+.vorschauUnterschrift {
     float: right;
     margin-right: 15%;
 }
+
+.vorschau_bild {}
+
 
 /*Upload button*/
 
