@@ -180,6 +180,19 @@ h3 {
     box-sizing: border-box;
 }
 
+.vorschau{
+    width:43%;
+    height: 90%;
+    background-color: #d5d1d1;
+    margin-top: -31%;
+    margin-left: 56%;
+    border-radius: 10px;
+}
+
+.vorschauUnterschrift{
+    float: right;
+    margin-right: 15%;
+}
 
 /*Upload button*/
 

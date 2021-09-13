@@ -187,6 +187,9 @@
             </br>
             <button>Fertig</button>
         </form>
+        <section class="vorschau">
+        </section>
+        <span class="vorschauUnterschrift">Vorschau, ca. 85% der Originalgröße</span>
     </div>
     <div class="box" id="4" style="display:none;">
         <h3>User</h3>
@@ -272,7 +275,7 @@
 
     </div>
     <script>
-        showDiv('2');
+        showDiv('3');
     </script>
 </body>
 
