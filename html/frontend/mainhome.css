@@ -1,153 +1,127 @@
 :root {
-    /*Main Background color*/
-    --main-bg-color: #ffa101;
-    /*color for big boxes*/
-    --innerMain-box: #fff;
-    /*color for the smaller boxes of the separate classes*/
-    --innerbox-bg-color: #f0eeee;
-    /*color for separate boxes*/
-    --box-bg-color: #b3dee5;
-    /*text color in boxes*/
-    --box-text-color: #31525b;
+  /*Main Background color*/
+  --main-bg-color: #ffa101;
+  /*color for big boxes*/
+  --innerMain-box: #fff;
+  /*color for the smaller boxes of the separate classes*/
+  --innerbox-bg-color: #f0eeee;
+  /*color for separate boxes*/
+  --box-bg-color: #b3dee5;
+  /*text color in boxes*/
+  --box-text-color: #31525b;
 }
 
 html,
 body {
-    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Open Sans, Ubuntu, Fira Sans, Helvetica Neue, sans-serif;
-    font-size: larger;
-    width: 100%;
-    height: 100%;
-    text-align: center;
-    background-color: var(--main-bg-color);
-    overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Open Sans,
+    Ubuntu, Fira Sans, Helvetica Neue, sans-serif;
+  font-size: larger;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  background-color: var(--main-bg-color);
+  overflow: hidden;
 }
 
 .news {
-    width: 84%;
-    height: 12vh;
-    margin-top: 3vh;
-    margin-left: 13.5%;
-    margin-right: auto;
-    border-radius: 10px;
-    background: var(--innerMain-box);
-    box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.3);
-    box-sizing: border-box;
-    position: relative;
+  width: 84%;
+  height: 12vh;
+  margin-top: 3vh;
+  margin-left: 13.5%;
+  margin-right: auto;
+  border-radius: 10px;
+  background: var(--innerMain-box);
+  box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.3);
+  box-sizing: border-box;
+  position: relative;
 }
 
 .time {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 10%;
-    height: 12vh;
-    margin-top: 3vh;
-    margin-left: 2.5%;
-    float: left;
-    border-radius: 10px;
-    background: var(--innerMain-box);
-    box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.3);
-    box-sizing: border-box;
-    font-size: 50px;
-    font-weight: 600;
-    position: relative;
-}
-
-.marquee {
-    max-width: 100vw;
-    white-space: nowrap;
-    overflow: hidden;
-}
-
-.marquee span {
-    display: inline-block;
-    padding-left: 105%;
-    /* die zusätzlichen 5% erzeugen einen verzögerten Start und vermeiden so ein Ruckeln auf langsamen Seiten */
-    animation: marquee 10s linear infinite;
-    font-size: xx-large;
-}
-
-
-/* Make it move */
-
-@keyframes marquee {
-    0% {
-        transform: translateX(0);
-    }
-    100% {
-        transform: translateX(-100%);
-    }
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 10%;
+  height: 12vh;
+  margin-top: 3vh;
+  margin-left: 2.5%;
+  float: left;
+  border-radius: 10px;
+  background: var(--innerMain-box);
+  box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.3);
+  box-sizing: border-box;
+  font-size: 50px;
+  font-weight: 600;
+  position: relative;
 }
 
 main {
-    display: grid;
-    width: 95%;
-    margin: auto;
-    column-gap: 0.5%;
-    grid-template-columns: 49.75% 49.75%;
+  display: grid;
+  width: 95%;
+  margin: auto;
+  column-gap: 0.5%;
+  grid-template-columns: 49.75% 49.75%;
 }
 
 .innerMain {
-    border-radius: 10px;
-    background: var(--innerMain-box);
-    box-shadow: 0 10px 25px 0 rgba(0, 0, 0, 0.3);
-    box-sizing: border-box;
-    padding: 30px;
-    margin-top: 2vh;
-    height: 100%;
+  border-radius: 10px;
+  background: var(--innerMain-box);
+  box-shadow: 0 10px 25px 0 rgba(0, 0, 0, 0.3);
+  box-sizing: border-box;
+  padding: 30px;
+  margin-top: 2vh;
+  height: 100%;
 }
 
 header {
-    font-weight: 700;
-    font-size: 125%;
-    text-transform: uppercase;
-    display: inline-block;
-    color: #0d0d0d;
-    border-bottom: 2px solid var(--main-bg-color);
+  font-weight: 700;
+  font-size: 125%;
+  text-transform: uppercase;
+  display: inline-block;
+  color: #0d0d0d;
+  border-bottom: 2px solid var(--main-bg-color);
 }
 
 .outerBox {
-    height: 70vh;
-    overflow: hidden;
-    border-radius: 10px;
-    margin-top: 1vh;
+  height: 70vh;
+  overflow: hidden;
+  border-radius: 10px;
+  margin-top: 1vh;
 }
 
 .innerBox {
-    display: flex;
-    border-radius: 10px;
-    background: var(--innerbox-bg-color);
-    box-shadow: 0 2px 2px 0 rgba(70, 70, 70, 0.3);
-    box-sizing: border-box;
-    padding: 15px;
-    margin-top: 0.75vh;
+  display: flex;
+  border-radius: 10px;
+  background: var(--innerbox-bg-color);
+  box-shadow: 0 2px 2px 0 rgba(70, 70, 70, 0.3);
+  box-sizing: border-box;
+  padding: 15px;
+  margin-top: 0.75vh;
 }
 
 h2 {
-    float: left;
-    width: 90px;
+  float: left;
+  width: 90px;
 }
 
 .ausfallendeStunden {
-    margin-left: 2%;
-    width: 100%;
+  margin-left: 2%;
+  width: 100%;
 }
 
 .eintrag {
-    color: var(--box-text-color);
-    background: var(--box-bg-color);
-    box-sizing: border-box;
-    border-radius: 5px;
-    margin-left: 1%;
-    margin-top: 1%;
-    float: left;
-    padding: 1vh;
-    min-width: 22vh;
-    height: 18vh;
-    /*min-height: 15vh;*/
-    font-size: 3vh;
+  color: var(--box-text-color);
+  background: var(--box-bg-color);
+  box-sizing: border-box;
+  border-radius: 5px;
+  margin-left: 1%;
+  margin-top: 1%;
+  float: left;
+  padding: 1vh;
+  min-width: 22vh;
+  height: 18vh;
+  /*min-height: 15vh;*/
+  font-size: 3vh;
 }
-
 
 /*.kisteUeberschrift {
     font-size: 3vh;
