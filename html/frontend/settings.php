@@ -157,7 +157,7 @@
         <form action="../backend/upload.php" method="post" enctype="multipart/form-data" id="form-upl">
 
             <label for="fileToUpload" id="upload-lbl">Klicken, um eine Datei auszuwählen</label>
-            <input type="file" id="fileToUpload" name="fileToUpload" onchange="changeEventHandler(event);" hidden />
+            <input type="file" id="fileToUpload" name="fileToUpload" onchange="changeEventHandler('fileToUpload');" hidden />
             <button id="submit-lbl" type="submit" name="submit" class="custom-btn btn-15" style="visibility: hidden; margin-top: 10px;">Hochladen</button>
         </form>
 

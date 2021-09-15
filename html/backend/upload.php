@@ -99,7 +99,7 @@ while (!feof($fp)) {
     $Vertretungsraum = str_replace('"', '', $Vertretungsraum);
     $Klasse = str_replace('"', '', $Klasse);
     $Vertretungsklasse = str_replace('"', '', $Vertretungsklasse);
-    $Vertretungsart = str_replace('"', '', $Vertretungsart);
+    $Vertretungsart = str_replace('"', '', $Art);
     $Text_zur_Vertretung = str_replace('"', '', $Text_zur_Vertretung);
 
     //Sondereinsatz, Pausenaufsicht
@@ -133,7 +133,7 @@ while (!feof($fp)) {
             '$Vertretungsklasse',
             '$Vertretungsart')";
 
-        if ((strpos($Vertretungsart, "L") !== false) == false) {
+        /*if ((strpos($Vertretungsart, "L") !== false) == false) {
             if ((strpos($Vertretungsart, "A") !== false) === false) {
                 if ((strpos($Vertretungsart, "S") !== false) === false) {
                     if ((strpos($Vertretungsart, "B") !== false) === false) {
@@ -141,7 +141,8 @@ while (!feof($fp)) {
                     }
                 }
             }
-        }
+        }*/
+        echo $Art;
     }
 }
 
