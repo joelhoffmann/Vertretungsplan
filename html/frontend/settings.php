@@ -145,10 +145,7 @@
             <a class="menu-link text-underlined" onclick="showDiv('1')">#UPLOAD</a>
             <a class="menu-link text-underlined" onclick="showDiv('2')">#Nachrichten</a>
             <a class="menu-link text-underlined" onclick="showDiv('3')">#Extra Nachrichten</a>
-            <a class="menu-link text-underlined" onclick="showDiv('4')" hidden>#User</a>
-            <!--Kann noch entfernt werden-->
-            <a class="menu-link text-underlined" onclick="showDiv('5')">#System</a>
-
+            <a class="menu-link text-underlined" onclick="showDiv('4')">#System</a>
         </section>
     </nav>
     <!--Hochladen-->
@@ -234,29 +231,6 @@
         </section>
         <span class="vorschauUnterschrift">Vorschau, ca. 85% der Originalgröße</span>
     </div>
-    <!--User Interface kann noch entfernt werden-->
-    <div class="box" id="4" style="display:none;">
-        <h3>User</h3>
-        <form action="new_user.php" method="post">
-            <label for="Username">Username</label>
-            </br>
-            <input id="Username" name="Username">
-            </br>
-            <label for="Passwort">Passwort</label>
-            </br>
-            <input id="Passwort" name="Passwort" type="password">
-            </br>
-            <label for="Passwort-wdh">Passwort wdh</label>
-            </br>
-            <input id="Passwort-wdh" name="Passwort-wdh" type="password">
-            </br>
-            <label for="Email">Email</label>
-            </br>
-            <input id="Email" name="Email">
-            </br>
-            <button>Fertig</button>
-        </form>
-    </div>
     <!--System-->
     <div id="5" style="display:none;">
         <p class="u-text u-text-8">
@@ -297,26 +271,6 @@
 
                 </div>
             </div>
-            <!--Geschwindigkeit, Delay und Update Database können entfernt werden-->
-            <div class="grid-item grid-item-1 span-2">Geschwindigkeit
-                <div id="Geschwindigkeit">
-                    </br>
-                    <input id="inhalt" value="<?php echo $speed ?>">
-                    </br></br>
-                    <div class="status"></br></div>
-                </div>
-            </div>
-            <div class="grid-item grid-item-2 span-2">Delay
-                <div id="Delay">
-                    </br>
-                    <input id="inhalt2" value="<?php echo $delay ?>">
-                    </br>
-                    </br>
-                    <div class="status2"></br></div>
-                </div>
-            </div>
-            <!-- Kann noch ausgebaut werden -->
-            <a class="grid-item grid-item-5" onclick="showDiv('1')">Update Database</a>
             <!-- Verweist auf den Vertretungsplan -->
             <a class="grid-item grid-item-7" href="../frontend/vertretungsplan.php">Vertretungsplan</a>
             <!-- Ermöglicht einen Git Pull vom Repository zu machen -->
@@ -325,7 +279,7 @@
 
     </div>
     <script>
-        showDiv('3');
+        showDiv('1');
     </script>
 </body>
 

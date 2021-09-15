@@ -1,9 +1,0 @@
-https://freefrontend.com/bootstrap-login-forms/
-
-Weekend: https://codepen.io/faria09/pen/vYGZVgW
-
-Gridsystem: https://codepen.io/balazs_sziklai/pen/mOwoLg
-
-Searchbar: https://www.tutorialrepublic.com/php-tutorial/php-mysql-ajax-live-search.php
-
-https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_trigger_button_enter

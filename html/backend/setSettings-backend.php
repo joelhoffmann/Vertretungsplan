@@ -1,5 +1,5 @@
 <?php
-//könnte noch zusammengefasst werden
+//Wird aktuell nicht mehr benötigt
 include '../backend/vertretungsplan-anzeigen.php';
 $db = dbConnect();
 
