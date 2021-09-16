@@ -232,7 +232,7 @@
         <span class="vorschauUnterschrift">Vorschau, ca. 85% der Originalgröße</span>
     </div>
     <!--System-->
-    <div id="5" style="display:none;">
+    <div id="4" style="display:none;">
         <p class="u-text u-text-8">
         <div class="grid-layout">
             <!--Farben einstellen-->
@@ -279,7 +279,7 @@
 
     </div>
     <script>
-        showDiv('1');
+        showDiv('4');
     </script>
 </body>
 

@@ -98,9 +98,9 @@ while (!feof($fp)) {
     $Raum = str_replace('"', '', $Raum);
     $Vertretungsraum = str_replace('"', '', $Vertretungsraum);
     $Klasse = str_replace('"', '', $Klasse);
-    $Vertretungsklasse = str_replace('"', '', $Vertretungsklasse);
+    //$Vertretungsklasse = str_replace('"', '', $Vertretungsklasse);
     $Vertretungsart = str_replace('"', '', $Art);
-    //$Vertretungsart = str_replace('"', '', $Vertretungsfach);
+    $Vertretungsart = str_replace('"', '', $Vertretungsart);
     $Text_zur_Vertretung = str_replace('"', '', $Text_zur_Vertretung);
 
     //Sondereinsatz, Pausenaufsicht
@@ -154,7 +154,6 @@ while (!feof($fp)) {
             $binaryArt[strlen($binaryArt)-19] === '1'){ //Bit 18 - Stunde ist unterrichtsfrei
             mysqli_query($db, $sql);
         }
-    
     }
 }
 
