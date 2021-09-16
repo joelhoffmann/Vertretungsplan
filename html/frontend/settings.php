@@ -17,8 +17,8 @@
     include '../backend/vertretungsplan-anzeigen.php';
     $db = dbConnect();
     $ip = getenv('REMOTE_ADDR');
-    if (mysqli_query($db, "SELECT * FROM `settings`")->num_rows) {
-        $eintrag = "SELECT * FROM `settings`"; //Ist da noch ein Sinn vorhanden?!?!?!
+    if (mysqli_query($db, "SELECT * FROM `settings`")->num_rows) { //Wird nicht mehr benötigt
+        $eintrag = "SELECT * FROM `settings`";
         $db_erg = mysqli_query($db, $eintrag);
         $zeile = mysqli_fetch_array($db_erg, MYSQLI_BOTH);
         $delay = $zeile['E1'];
@@ -264,7 +264,7 @@
                         </br>
                         <input type="color" name="BoxTextColor" value="<?php echo $BoxTextColor; ?>">
                         </br>
-
+                        </br>
                         <button type="submit">submit</button>
 
                     </form>
