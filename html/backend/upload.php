@@ -134,30 +134,26 @@ while (!feof($fp)) {
             '$Vertretungsklasse',
             '$Vertretungsart')";
 
-        /*if((strpos($Vertretungsart, "L") !== false) == false) {
-            if ((strpos($Vertretungsart, "A") !== false) === false) {
-                if ((strpos($Vertretungsart, "S") !== false) === false) {
-                    if ((strpos($Vertretungsart, "B") !== false) === false) {
-                        mysqli_query($db, $sql);
-                    }
-                }
-            }
-        }*/
         $binaryArt = decbin($Vertretungsart);
-        if($binaryArt[strlen($binaryArt)-1] === '1'  || //Bit 0 - Entfall
-            $binaryArt[strlen($binaryArt)-2] === '1'  || //Bit 1 - Betreuung
-            $binaryArt[strlen($binaryArt)-3] === '1'  || //Bit 2 - Sondereinsatz
-            $binaryArt[strlen($binaryArt)-4] === '1'  || //Bit 3 - Wegverlegung
-            $binaryArt[strlen($binaryArt)-7] === '1'  || //Bit 6 - Teilvertretung
-            $binaryArt[strlen($binaryArt)-8] === '1'  || //Bit 7 - Hinverlegung
-            $binaryArt[strlen($binaryArt)-17] === '1' || //Bit 16 - Raumvertretung
-            $binaryArt[strlen($binaryArt)-19] === '1'){ //Bit 18 - Stunde ist unterrichtsfrei
+
+        if (
+            $binaryArt[strlen($binaryArt) - 1] === '1'  || //Bit 0 - Entfall
+            $binaryArt[strlen($binaryArt) - 2] === '1'  || //Bit 1 - Betreuung
+            $binaryArt[strlen($binaryArt) - 3] === '1'  || //Bit 2 - Sondereinsatz
+            $binaryArt[strlen($binaryArt) - 4] === '1'  || //Bit 3 - Wegverlegung
+            $binaryArt[strlen($binaryArt) - 7] === '1'  || //Bit 6 - Teilvertretung
+            $binaryArt[strlen($binaryArt) - 8] === '1'  || //Bit 7 - Hinverlegung
+            $binaryArt[strlen($binaryArt) - 17] === '1' || //Bit 16 - Raumvertretung
+            $binaryArt[strlen($binaryArt) - 19] === '1'    //Bit 18 - Stunde ist unterrichtsfrei
+        ) { 
             mysqli_query($db, $sql);
         }
     }
 }
 
+
+    
 mysqli_close($db);
 fclose($fp);
 
-//header('location: ../frontend/settings.php');
+header('location: ../frontend/settings.php');

@@ -20,12 +20,21 @@
     <?php
     include '../backend/vertretungsplan-anzeigen.php';
     include '../backend/extra_nachricht_anzeigen.php';
+    
+    $db = dbConnect();
+    $db_erg = mysqli_query($db, "SELECT * FROM `colorlayout` WHERE 1");
+    $zeile = mysqli_fetch_array($db_erg, MYSQLI_BOTH);
 
+    $MainBackgroundColor = $zeile['F1'];
+    $InnerMainBox = $zeile['F2'];
+    $InnerBoxBackgroundColor = $zeile['F3'];
+    $BoxBackgroundColor = $zeile['F4'];
+    $BoxTextColor = $zeile['F5'];
     //Abfrage welche News Art
     //Bei keiner Nachricht vorhanden darf die Funktion nicht ausgeführt werden
     ?>
     <script>
-        /*
+        /* Extra News
                 var Switch = setInterval(function() {
                     if (document.getElementById('1').style.display == "block") {
                         document.getElementById('1').style.display = "none";
@@ -37,13 +46,6 @@
 
                 }, 3000); //Zeit muss noch auf 30 Sekunden gestellt werden
         */
-        //Needs to be redone properly in php
-        var style = getComputedStyle(document.documentElement);
-        var MainBackgroundColor = style.getPropertyValue('--main-bg-color');
-        var InnerMainBox = style.getPropertyValue('--innerMain-box');
-        var InnerBoxBackgroundColor = style.getPropertyValue('--innerbox-bg-color');
-        var BoxBackgroundColor = style.getPropertyValue('--box-bg-color');
-        var BoxTextColor = style.getPropertyValue('--box-text-color');
 
         function master() {
             startTime();
@@ -51,19 +53,6 @@
             test(2);
         }
     </script>
-    <?php
-    $db = dbConnect();
-    $db_erg = mysqli_query($db, "SELECT * FROM `colorlayout` WHERE 1");
-    $zeile = mysqli_fetch_array($db_erg, MYSQLI_BOTH);
-
-    $MainBackgroundColor = $zeile['F1'];
-    $InnerMainBox = $zeile['F2'];
-    $InnerBoxBackgroundColor = $zeile['F3'];
-    $BoxBackgroundColor = $zeile['F4'];
-    $BoxTextColor = $zeile['F5'];
-
-
-    ?>
     <style>
         :root {
             /*Main Background color*/
@@ -117,7 +106,6 @@
         <article class="innerMain" id="2" style="display:none;">
             <header>Wichtig</header>
             </br>
-
             <?php
             $datum = date("Y-m-d");
             $db = dbConnect();
