@@ -10,11 +10,17 @@ function dbConnect()
     return $db;
 }
 
+function debug($input){
+    echo '<script>';
+    echo 'console.log('.json_encode($input).')';
+    echo '</script>';
+
+}
 function checkDS($zeile, $db, $db_erg, $datum) //Prüfen auf Doppelstunden...funktioniert nicht ganz richtig
 {
     $now = (int)$zeile['Stunde'];
     if ($now == 1 || $now == 3 || $now == 5 || $now == 8 || $now == 10) {
-        $test = $now + 1;
+        $test = $now + 1;//Needs to be renamed
         $Klasse = $zeile['Klasse(n)'];
         $Fach = $zeile['Fach'];
         $Absenter_Lehrer = $zeile['Absenter_Lehrer'];
@@ -71,7 +77,7 @@ function setEntry($db, $datum, $callback)
         if ($db_erg->num_rows == 0) {
             $date = date("Y-m-d");
             if (strpos($datum, $date) !== false) {
-                echo "test";
+                //echo "test";
             } else {
 
                 $datum = date('Y-m-d', strtotime($datum . '+ 1 day'));
@@ -93,11 +99,12 @@ function setEntry($db, $datum, $callback)
                     die('Ungültige Abfrage: ');
                 }
 
-                if ($db_erg->num_rows > 0) {
+                /*if ($db_erg->num_rows > 0) {
 
                     echo "<section class='innerBox'><h2>$klassen[$i]</h2><section class='ausfallendeStunden'>";
                     while ($zeile = mysqli_fetch_array($db_erg, MYSQLI_ASSOC)) {
                         $ende = "true";
+                        //Originaler Code, welcher noch mit Buchstaben zur Unterscheidung arbeitet
                         if ($zeile['Vertretungsart'] == null) { //Other ------------------------------------
                             $ende = checkDS($zeile, $db, $db_erg, $datum);
                             if ($ende == "true") {
@@ -217,6 +224,140 @@ function setEntry($db, $datum, $callback)
                         } else {
                             $ende = "false";
                         }
+                                                
+                        if ($ende == "true") {
+                            echo "</section>";
+                        } else {
+                            $ende = "true";
+                        }
+                    }
+                    echo "</section></section>";*/
+
+                if ($db_erg->num_rows > 0) {
+
+                    echo "<section class='innerBox'><h2>$klassen[$i]</h2><section class='ausfallendeStunden'>";
+                    while ($zeile = mysqli_fetch_array($db_erg, MYSQLI_ASSOC)) {
+                        $ende = "true";
+                        //Neue Methode, die mit dem Bitfeld arbeitet
+                        $binaryVertretungsart = decbin($zeile['Vertretungsart']);
+                        if($binaryVertretungsart[strlen($binaryVertretungsart)-1] === '1'){//Entfall
+                            debug('Entfall');
+                            $ende = checkDS($zeile, $db, $db_erg, $datum);
+                            if ($ende == "true") {
+                                echo "Entfall" . "<br>";
+                                echo "<s>" . $zeile['Fach'] . "</s> ";
+                            }
+                        }
+                        elseif($binaryVertretungsart[strlen($binaryVertretungsart)-2] === '1'){//Betreuung
+                            debug('Betreuung');
+                            $ende = checkDS($zeile, $db, $db_erg, $datum);
+                            if ($ende == "true") {
+                                if ($zeile['Absenter_Lehrer'] != $zeile['Vertretender_Lehrer']) {
+                                    echo "<s>" . $zeile['Absenter_Lehrer'] . "</s> &#10132; " . $zeile['Vertretender_Lehrer'];
+                                }
+                                if ($zeile['Fach'] != $zeile['Vertretungsfach']) {
+                                    echo "<br><s>" . $zeile['Fach'] . "</s> &#10132; " . $zeile['Vertretungsfach'];
+                                }
+                                if ($zeile['Raum'] != $zeile['Vertretungsraum']) {
+                                    echo "<br><s>" . $zeile['Raum'] . "</s> &#10132; " . $zeile['Vertretungsraum'];
+                                }
+                                if ($zeile['Text_zur_Vertretung'] != null) {
+                                    echo $zeile['Text_zur_Vertretung'];
+                                }
+                            }
+                        }
+                        elseif($binaryVertretungsart[strlen($binaryVertretungsart)-3] === '1'){//Sondereinsatz
+                            debug('Sondereinsatz');
+                            $ende = checkDS($zeile, $db, $db_erg, $datum);
+                            if ($ende == "true") {
+                                if ($zeile['Absenter_Lehrer'] != $zeile['Vertretender_Lehrer']) {
+                                    echo "<s>" . $zeile['Absenter_Lehrer'] . "</s> &#10132; " . $zeile['Vertretender_Lehrer'];
+                                }
+                                if ($zeile['Fach'] != $zeile['Vertretungsfach']) {
+                                    echo "<br><s>" . $zeile['Fach'] . "</s> &#10132; " . $zeile['Vertretungsfach'];
+                                }
+                                if ($zeile['Raum'] != $zeile['Vertretungsraum']) {
+                                    echo "<br><s>" . $zeile['Raum'] . "</s> &#10132; " . $zeile['Vertretungsraum'];
+                                }
+
+                                if ($zeile['Text_zur_Vertretung'] != null) {
+                                    echo $zeile['Text_zur_Vertretung'];
+                                }
+                            }
+                        }
+                        elseif($binaryVertretungsart[strlen($binaryVertretungsart)-4] === '1'){//Wegverlegung
+                            debug('Wegverlegung');
+                            $ende = checkDS($zeile, $db, $db_erg, $datum);
+                            if ($ende == "true") {
+                                if ($zeile['Absenter_Lehrer'] != $zeile['Vertretender_Lehrer']) {
+                                    echo "<s>" . $zeile['Absenter_Lehrer'] . "</s> &#10132; " . $zeile['Vertretender_Lehrer'];
+                                }
+                                if ($zeile['Fach'] != $zeile['Vertretungsfach']) {
+                                    echo "<br><s>" . $zeile['Fach'] . "</s> &#10132; " . $zeile['Vertretungsfach'];
+                                }
+                                if ($zeile['Raum'] != $zeile['Vertretungsraum']) {
+                                    echo "<br><s>" . $zeile['Raum'] . "</s> &#10132; " . $zeile['Vertretungsraum'];
+                                }
+
+                                if ($zeile['Text_zur_Vertretung'] != null) {
+                                    echo $zeile['Text_zur_Vertretung'];
+                                }
+                            }
+                        }
+                        elseif($binaryVertretungsart[strlen($binaryVertretungsart)-7] === '1'){//Teilvertretung
+                            debug('Teilvertretung');
+                            echo "<h6>Teil-Vertretung</h6>";
+                        }
+                        elseif($binaryVertretungsart[strlen($binaryVertretungsart)-8] === '1'){//Hinverlegung
+                            debug('Hinverlegung');
+                            $ende = checkDS($zeile, $db, $db_erg, $datum);
+                            if ($ende == "true") {
+                                if ($zeile['Absenter_Lehrer'] != $zeile['Vertretender_Lehrer']) {
+                                    echo "<s>" . $zeile['Absenter_Lehrer'] . "</s> &#10132; " . $zeile['Vertretender_Lehrer'];
+                                }
+                                if ($zeile['Fach'] != $zeile['Vertretungsfach']) {
+                                    echo "<br><s>" . $zeile['Fach'] . "</s> &#10132; " . $zeile['Vertretungsfach'];
+                                }
+                                if ($zeile['Raum'] != $zeile['Vertretungsraum']) {
+                                    echo "<br><s>" . $zeile['Raum'] . "</s> &#10132; " . $zeile['Vertretungsraum'];
+                                }
+
+                                if ($zeile['Text_zur_Vertretung'] != null) {
+                                    echo $zeile['Text_zur_Vertretung'];
+                                }
+                            }
+                        }
+                        elseif($binaryVertretungsart[strlen($binaryVertretungsart)-17] === '1'){//Raumvertretung
+                            debug('Raumvertretung');
+                            $ende = checkDS($zeile, $db, $db_erg, $datum);
+                            if ($ende == "true") {
+                                if ($zeile['Text_zur_Vertretung'] != null) {
+                                    echo $zeile['Text_zur_Vertretung'] . "<br>";
+                                }
+                                if ($zeile['Raum'] != null) {
+                                    echo "<s>" . $zeile['Raum'] . "</s> &#10132; " . $zeile['Vertretungsraum'] . "<br>";
+                                } else {
+                                    echo "Raumvertretung<br>" . $zeile['Vertretungsraum'] . "<br>";
+                                }
+                            }
+                        }
+                        elseif($binaryVertretungsart[strlen($binaryVertretungsart)-18] === '1'){//Stunde ist unterrichtsfrei
+                            debug('Stunde ist unterrichtsfrei');
+                            $ende = checkDS($zeile, $db, $db_erg, $datum);
+                            if ($ende == "true") {
+                                if ($zeile['Text_zur_Vertretung'] != null) {
+                                    echo $zeile['Text_zur_Vertretung'] . "<br>";
+                                }
+                                if ($zeile['Raum'] != null) {
+                                    echo "<s>" . $zeile['Raum'] . "</s> &#10132; " . $zeile['Vertretungsraum'] . "<br>";
+                                } else {
+                                    echo "Stunde ist unterrichtsfrei<br>" . $zeile['Vertretungsraum'] . "<br>";
+                                }
+                            }
+                        }else {
+                            $ende = "false";
+                        }                 
+                        
                         if ($ende == "true") {
                             echo "</section>";
                         } else {

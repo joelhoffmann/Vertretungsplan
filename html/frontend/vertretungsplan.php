@@ -51,10 +51,33 @@
             test(2);
         }
     </script>
+    <?php
+    $db = dbConnect();
+    $db_erg = mysqli_query($db, "SELECT * FROM `colorlayout` WHERE 1");
+    $zeile = mysqli_fetch_array($db_erg, MYSQLI_BOTH);
+
+    $MainBackgroundColor = $zeile['F1'];
+    $InnerMainBox = $zeile['F2'];
+    $InnerBoxBackgroundColor = $zeile['F3'];
+    $BoxBackgroundColor = $zeile['F4'];
+    $BoxTextColor = $zeile['F5'];
 
 
-
-    </script>
+    ?>
+    <style>
+        :root {
+            /*Main Background color*/
+            --main-bg-color: <?php echo $MainBackgroundColor; ?>;
+            /*color for big boxes*/
+            --innerMain-box: <?php echo $InnerMainBox; ?>;
+            /*color for the smaller boxes of the separate classes*/
+            --innerbox-bg-color: <?php echo $InnerBoxBackgroundColor; ?>;
+            /*color for separate boxes*/
+            --box-bg-color: <?php echo $BoxBackgroundColor; ?>;
+            /*text color in boxes*/
+            --box-text-color: <?php echo $BoxTextColor; ?>;
+        }
+    </style>
 </head>
 
 <body style="margin: 0;" onload="master()">

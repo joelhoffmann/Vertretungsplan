@@ -1,15 +1,4 @@
-:root {
-    /*Main Background color*/
-    --main-bg-color: #ffa101;
-    /*color for big boxes*/
-    --innerMain-box: #fff;
-    /*color for the smaller boxes of the separate classes*/
-    --innerbox-bg-color: #f0eeee;
-    /*color for separate boxes*/
-    --box-bg-color: #b3dee5;
-    /*text color in boxes*/
-    --box-text-color: #31525b;
-}
+
 
 html,
 body {
