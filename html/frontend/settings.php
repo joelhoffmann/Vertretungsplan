@@ -50,6 +50,10 @@
                 console.log("Pulled from Git");
             });
         });
+       
+
+
+       
     }
 
     function changeEventHandler($id) {
@@ -65,7 +69,6 @@
         document.getElementById('upload-lbl').innerHTML = filename;
         document.getElementById('Bild').innerHTML = filename;
 
-        console.log('test');
         $.ajax({
             type: "POST",
             data: {
@@ -177,15 +180,13 @@
             }
         </script>
         <section class="vorschau">
-            <div id="vorschau_Title">
-                dddd
-            </div>
-            <div id="vorschau_Text">
-                ddd
-            </div>
-
-            <img id="vorschau_bild" src="#" style="max-width: 50%; max-height: 50%;" />
-
+            </br>
+            <!--Vorschau funktioniert momentan für Querformat, jetzt muss es so gebaut werden, dass man unterscheiden kann zwischen quer- und hochformat-->    
+            <h2 id="vorschau_Title"></h2>
+            <section class="innerVorschau">
+                <div id="vorschau_Text"></div>
+                <img id="vorschau_bild" src="#" alt="">
+            </section>
         </section>
         <span class="vorschauUnterschrift">Vorschau, ca. 85% der Originalgröße</span>
     </div>
@@ -236,7 +237,7 @@
         </div>
     </div>
     <script>
-        showDiv('4');
+        showDiv('3');
     </script>
 </body>
 
