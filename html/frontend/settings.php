@@ -42,47 +42,6 @@
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script>
     window.onload = function() {
-        var input = document.getElementById("Geschwindigkeit"); //Beide Funktionen werden nicht mehr verwendet
-        input.addEventListener("keyup", function(event) {
-            if (event.keyCode === 13) {
-                var inputVal = document.getElementById("inhalt").value;
-                var wertTyp = "Geschwindigkeit";
-                var resultDropdown = $(this).children(".status")
-                $.get("../backend/setSettings-backend.php", {
-                    term: inputVal,
-                    term2: wertTyp
-                }).done(function(data) {
-                    resultDropdown.html(data);
-                    $(function() {
-                        setTimeout(function() {
-                            $(".status").replaceWith("</br>");
-                        }, 2000);
-                    });
-                });
-            }
-        });
-
-        var input2 = document.getElementById("Delay");
-        input2.addEventListener("keyup", function(event) {
-            if (event.keyCode === 13) {
-                var inputVal = document.getElementById("inhalt2").value;
-                var wertTyp = "Delay";
-                var resultDropdown = $(this).children(".status2")
-
-                $.get("../backend/setSettings-backend.php", {
-                    term: inputVal,
-                    term2: wertTyp
-                }).done(function(data) {
-                    resultDropdown.html(data);
-                    $(function() {
-                        setTimeout(function() {
-                            $(".status2").replaceWith("</br>");
-                        }, 2000);
-                    });
-                });
-            }
-        });
-
         $('.gitpull').click(function() {
             $.ajax({
                 type: "POST",
@@ -207,7 +166,6 @@
             </br>
             <input id="date-B" name="date-B" type="date" data-date="" data-date-format="DD MMMM YYYY" value="<?php echo date("Y-m-d"); ?>" style="font-size: larger;">
             </br>
-
             <button>Fertig</button>
         </form>
         <script>
@@ -276,7 +234,6 @@
             <!-- Ermöglicht einen Git Pull vom Repository zu machen -->
             <a class="grid-item grid-item-7" href="../backend/gitpull.php">Git Pull</a>
         </div>
-
     </div>
     <script>
         showDiv('4');
