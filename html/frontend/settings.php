@@ -182,13 +182,25 @@
 
         <section class="vorschau">
             </br>
-            <!--Vorschau funktioniert momentan für Querformat, jetzt muss es so gebaut werden, dass man unterscheiden kann zwischen quer- und hochformat-->    
             <h2 id="vorschau_Title"></h2>
-            <section class="innerVorschau">
+            <section id="innerVorschau">
                 <div id="vorschau_Text"></div>
                 <img id="vorschau_bild" src="#" alt="">
             </section>
         </section>
+        <script>
+            vorschau_bild.onload = function(){
+                if(this.naturalWidth >this.naturalHeight){
+                    document.getElementById('innerVorschau').setAttribute("style", "display: grid;width: 90%;margin: auto;grid-auto-flow: row;row-gap: 10%;");
+                    document.getElementById('vorschau_Text').setAttribute("style", "margin: auto;");
+
+                }else{
+                    document.getElementById('innerVorschau').setAttribute("style", "display: grid;width: 90%;grid-template-columns: 50% 50%;column-gap: 5%;");
+                    document.getElementById('vorschau_Text').setAttribute("style", "margin-left: auto;");
+                }
+                
+            }
+        </script>
         <span class="vorschauUnterschrift">Vorschau, ca. 85% der Originalgröße</span>
     </div>
     <!--System-->
