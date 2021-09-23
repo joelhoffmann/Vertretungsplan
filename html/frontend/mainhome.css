@@ -1,5 +1,3 @@
-
-
 html,
 body {
     font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Open Sans, Ubuntu, Fira Sans, Helvetica Neue, sans-serif;
@@ -92,7 +90,6 @@ header {
 
 h2 {
     float: left;
-    width: 90px;
 }
 
 .ausfallendeStunden {
@@ -121,3 +118,8 @@ h2 {
     margin-top: none;
     font-weight: bold;
 }*/
+
+
+.ExtraPicture{
+    margin: auto;
+}

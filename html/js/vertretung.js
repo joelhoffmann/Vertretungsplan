@@ -55,3 +55,17 @@ function nextDay(diff) { //Prints out date to header
 
 
 }
+
+function switchbetween(delay){
+    var Switch = setInterval(function() {
+        if (document.getElementById('1').style.display == "block") {
+            document.getElementById('1').style.display = "none";
+            document.getElementById('2').style.display = "block";
+        } else {
+            document.getElementById('1').style.display = "block";
+            document.getElementById('2').style.display = "none";
+        }
+
+    }, delay);
+
+}
