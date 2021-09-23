@@ -56,8 +56,8 @@ function nextDay(diff) { //Prints out date to header
 
 }
 
-function switchbetween(delay){
-    var Switch = setInterval(function() {
+function switchbetween(delay) {
+    setInterval(function() {
         if (document.getElementById('1').style.display == "block") {
             document.getElementById('1').style.display = "none";
             document.getElementById('2').style.display = "block";
@@ -67,5 +67,25 @@ function switchbetween(delay){
         }
 
     }, delay);
+
+}
+
+function showNewsSwitch(max, delay) {
+    $max = max;
+    $min = 10;
+    $counter = 10;
+    document.getElementById($min).style.display = "block";
+
+    setInterval(function() {
+        if ($counter == max) {
+            $counter = $min;
+        }
+        for (var i = $min; i < max; i++) {
+            document.getElementById(i).style.display = "none";
+        }
+        document.getElementById($counter).style.display = "block";
+        $counter++;
+    }, delay);
+
 
 }
