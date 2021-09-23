@@ -20,7 +20,7 @@
     <?php
     include '../backend/vertretungsplan-anzeigen.php';
     include '../backend/extra_nachricht_anzeigen.php';
-    
+
     $db = dbConnect();
     $db_erg = mysqli_query($db, "SELECT * FROM `colorlayout` WHERE 1");
     $zeile = mysqli_fetch_array($db_erg, MYSQLI_BOTH);
@@ -104,7 +104,7 @@
 
         <!--Einträge News-->
         <article class="innerMain" id="2" style="display:none;">
-            <header>Wichtig</header>
+            <header>News</header>
             </br>
             <?php
             $datum = date("Y-m-d");
@@ -112,6 +112,7 @@
             showNews($db, $datum);
             mysqli_close($db);
             ?>
+
 
         </article>
     </main>

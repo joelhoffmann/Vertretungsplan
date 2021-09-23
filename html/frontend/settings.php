@@ -218,6 +218,7 @@
                 }
             }
         </script>
+
         <section class="vorschau">
             <div id="vorschau_Title">
                 dddd
@@ -279,7 +280,7 @@
 
     </div>
     <script>
-        showDiv('4');
+        showDiv('3');
     </script>
 </body>
 

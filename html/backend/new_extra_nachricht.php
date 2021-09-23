@@ -57,6 +57,6 @@ $eintrag = "INSERT INTO `news_extra`(`ID`, `title`, `text`, `picture_location`, 
 
 $eintragen = mysqli_query($db, $eintrag);
 echo ("Test");
-//header('location: ../frontend/settings.php');
+header('location: ../frontend/settings.php');
 
 mysqli_close($db);

@@ -9,12 +9,11 @@ function showNews($db, $datum)
         die('Ungültige Abfrage: ');
     }
     if ($db_erg->num_rows > 0) {
-        while ($zeile = mysqli_fetch_array($db_erg, MYSQLI_ASSOC)) {
-            echo "<h2>" . $zeile['title'] . "</h2></br></br>";
-            echo "<p>" . $zeile['text'] . "</p>";
+        if ($zeile = mysqli_fetch_array($db_erg, MYSQLI_ASSOC)) {
+            echo "<h1>" . $zeile['title'] . "</h1>";
+            echo "<div id='news-text'>" . $zeile['text'] . "</div>";
             if ($zeile['picture_location']) {
-
-                echo "<img  src=" . $zeile['picture_location'] . " alt='' max-width='70%' >";
+                echo "<img  src=" . $zeile['picture_location'] . " alt='' id='news-bild' align='right'>";
             }
         }
     }
