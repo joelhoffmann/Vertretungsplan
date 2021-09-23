@@ -195,7 +195,7 @@
 
                 }else{
                     document.getElementById('innerVorschau').setAttribute("style", "display: grid;width: 90%;grid-template-columns: 50% 50%;column-gap: 5%;");
-                    document.getElementById('vorschau_Text').setAttribute("style", "margin-left: auto;");
+                    document.getElementById('vorschau_Text').setAttribute("style", "margin-left: 20%;");
                 }
                 
             }
