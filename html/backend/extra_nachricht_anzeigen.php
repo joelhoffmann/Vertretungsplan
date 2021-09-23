@@ -8,13 +8,22 @@ function showNews($db, $datum)
     if (!$db_erg) {
         die('Ungültige Abfrage: ');
     }
+    echo "<section class='outerExtra'>";
     if ($db_erg->num_rows > 0) {
-        if ($zeile = mysqli_fetch_array($db_erg, MYSQLI_ASSOC)) {
-            echo "<h1>" . $zeile['title'] . "</h1>";
-            echo "<div id='news-text'>" . $zeile['text'] . "</div>";
+        while ($zeile = mysqli_fetch_array($db_erg, MYSQLI_ASSOC)) {
+            echo "<h2>" . $zeile['title'] . "</h2></br>";
+            echo "<div>" . $zeile['text'] . "</div>";
             if ($zeile['picture_location']) {
-                echo "<img  src=" . $zeile['picture_location'] . " alt='' id='news-bild' align='right'>";
+                list($width, $height) = getimagesize($zeile['picture_location']);
+                if ($width > $height) {//Querformat
+                    echo "<img class='ExtraPicture' src=" . $zeile['picture_location'] . " alt='' width='84%' height='84%' >";
+                    echo "<style>.outerExtra{display: grid;width: 100%;grid-auto-flow: row;}</style>";//custom css for outerExtra
+                } else {//Hochformat
+                    echo "<img class='ExtraPicture' src=" . $zeile['picture_location'] . " alt='' width='70%' height='100%'>";
+                    echo "<style>.outerExtra{display: grid;column-gap: 5%;width: 100%;grid-template-columns: 50% 50%;}</style>";//custom css for outerExtra 
+                }
             }
         }
     }
+    echo "</section>";
 }

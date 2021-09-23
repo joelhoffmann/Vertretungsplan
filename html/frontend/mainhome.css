@@ -90,7 +90,6 @@ header {
 
 h2 {
     float: left;
-    width: 90px;
 }
 
 .ausfallendeStunden {
@@ -120,13 +119,7 @@ h2 {
     font-weight: bold;
 }*/
 
-#news-bild {
-    max-width: 44vw;
-    max-height: 40vh;
-}
 
-#news-text {
-    text-align: justify;
-    text-indent: 2em;
-    max-width: 35%;
+.ExtraPicture{
+    margin: auto;
 }

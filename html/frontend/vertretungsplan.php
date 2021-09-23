@@ -30,27 +30,13 @@
     $InnerBoxBackgroundColor = $zeile['F3'];
     $BoxBackgroundColor = $zeile['F4'];
     $BoxTextColor = $zeile['F5'];
-    //Abfrage welche News Art
-    //Bei keiner Nachricht vorhanden darf die Funktion nicht ausgeführt werden
     ?>
     <script>
-        /* Extra News
-                var Switch = setInterval(function() {
-                    if (document.getElementById('1').style.display == "block") {
-                        document.getElementById('1').style.display = "none";
-                        document.getElementById('2').style.display = "block";
-                    } else {
-                        document.getElementById('1').style.display = "block";
-                        document.getElementById('2').style.display = "none";
-                    }
-
-                }, 3000); //Zeit muss noch auf 30 Sekunden gestellt werden
-        */
-
         function master() {
-            startTime();
-            scroll(2, 2000);
+            startTime();//Starts Time
+            scroll(2, 2000);//used to scroll the main content up and down
             test(2);
+            switchbetween(30000);//Bei keiner Nachricht vorhanden darf die Funktion nicht ausgeführt werden
         }
     </script>
     <style>
