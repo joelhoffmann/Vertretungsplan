@@ -83,6 +83,7 @@ function showNewsSwitch(max, delay) {
             document.getElementById(i).style.display = "none";
         }
         document.getElementById($counter).style.display = "block";
+        
         $counter++;
     }, delay);
 

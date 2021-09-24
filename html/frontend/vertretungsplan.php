@@ -35,9 +35,9 @@
         function master() {
             startTime();
             scroll(2, 2000);
-            test(1);
+            test(2);
             //switchbetween(3000);
-            //showNewsSwitch(13, 10000);
+            //showNewsSwitch(13, 10000);//Not needed, is called in main
         }
     </script>
     <style>

@@ -190,13 +190,13 @@
         </section>
         <script>
             vorschau_bild.onload = function(){
-                if(this.naturalWidth >this.naturalHeight){
+                if(this.naturalWidth >this.naturalHeight){ //Querformat
                     document.getElementById('innerVorschau').setAttribute("style", "display: grid;width: 90%;margin: auto;grid-auto-flow: row;row-gap: 10%;");
                     document.getElementById('vorschau_Text').setAttribute("style", "margin: auto;");
 
-                }else{
+                }else{//Hochformat
                     document.getElementById('innerVorschau').setAttribute("style", "display: grid;width: 90%;grid-template-columns: 50% 50%;column-gap: 5%;");
-                    document.getElementById('vorschau_Text').setAttribute("style", "margin-left: 20%;");
+                    document.getElementById('vorschau_Text').setAttribute("style", "margin-left: 20%;overflow-wrap: break-word");
                 }
                 
             }

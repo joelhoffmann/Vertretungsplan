@@ -200,9 +200,9 @@ h3 {
 }
 
 
-/*#vorschau_Text{
-    margin: auto;
-}*/
+#vorschau_Text{
+    margin-left: 10%;
+}
 
 #vorschau_bild {
     margin: auto;
