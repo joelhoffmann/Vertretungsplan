@@ -35,8 +35,9 @@
         function master() {
             startTime();
             scroll(2, 2000);
-            test(2);
-            //switchbetween(3000);
+
+            document.getElementById(1).style.display = "block";
+            switchbetween(120000);
             //showNewsSwitch(13, 10000);//Not needed, is called in main
         }
     </script>
@@ -97,7 +98,7 @@
             $datum = date("Y-m-d");
             $db = dbConnect();
             $counter = showNews($db);
-            echo"<script>showNewsSwitch($counter, 2000);</script>";
+            echo "<script>showNewsSwitch($counter, 2000);</script>";
             mysqli_close($db);
             ?>
 
@@ -140,7 +141,7 @@
         if ($result->num_rows > 0) {
             echo '<div id="marquee" class="marquee"><span>';
             while ($zeile = mysqli_fetch_array($result, MYSQLI_BOTH)) {
-                echo '|&emsp;'.$zeile['Inhalt'] . '&emsp;|&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;';
+                echo '|&emsp;' . $zeile['Inhalt'] . '&emsp;' . '|' . '&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;';
             }
             mysqli_close($db);
             echo '</span></div>';
