@@ -28,7 +28,7 @@ function scroll_einheit($master, $client, $speed, $delay) {
             document.getElementById($master).scrollTop -= $speed;
             document.getElementById($client).scrollTop -= $speed;
         }
-    }, 50);
+    }, 25);
 }
 
 function startTime() {
