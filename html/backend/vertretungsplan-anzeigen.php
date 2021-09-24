@@ -65,7 +65,7 @@ function setEntry($db, $datum, $callback)
 {
 
     if ($callback >= 365) {
-        echo "Out of DATA";
+        echo "<h1>Hab nichts zum anziegen :)</1h>";
         return;
     } else {
         $sql = "SELECT * FROM `vertretung_daten` WHERE `Datum` LIKE '$datum'"; //SQl befehl für klasse und datum

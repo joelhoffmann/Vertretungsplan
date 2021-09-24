@@ -23,7 +23,41 @@ body {
 }
 
 marquee {
-    margin-top: 1%;
+    margin-top: 5%;
+}
+
+.marquee {
+    max-width: 100vw;
+    /* iOS braucht das */
+    white-space: nowrap;
+    overflow: hidden;
+    /* hier evtl. noch font-size, color usw. */
+}
+
+.marquee span {
+    display: inline-block;
+    padding-left: 105%;
+    /* die zusätzlichen 5% erzeugen einen verzögerten Start und vermeiden so ein Ruckeln auf langsamen Seiten */
+    animation: marquee 15s linear infinite;
+}
+
+
+/* Optional: mouseover (oder Tipp auf dem Touchscreen) pausiert die Laufschrift */
+
+.marquee span:hover {
+    animation-play-state: paused
+}
+
+
+/* Make it move */
+
+@keyframes marquee {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
 }
 
 .time {
@@ -119,7 +153,6 @@ h2 {
     font-weight: bold;
 }*/
 
-
-.ExtraPicture{
+.ExtraPicture {
     margin: auto;
 }

@@ -179,6 +179,7 @@
                 }
             }
         </script>
+
         <section class="vorschau">
             </br>
             <h2 id="vorschau_Title"></h2>

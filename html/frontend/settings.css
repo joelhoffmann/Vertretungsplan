@@ -157,6 +157,7 @@ h3 {
 }
 
 #Bild,
+#Nachricht,
 #date-A,
 #date-B,
 #Titel,
@@ -192,23 +193,26 @@ h3 {
     margin: auto;
     row-gap: 10%;
 }*/
+
 .vorschauUnterschrift {
     float: right;
     margin-right: 15%;
 }
 
+
 /*#vorschau_Text{
     margin: auto;
 }*/
+
 #vorschau_bild {
     margin: auto;
     width: 70%;
-
 }
 
-#vorschau_Title{
+#vorschau_Title {
     text-align: center;
 }
+
 
 /*Upload button*/
 

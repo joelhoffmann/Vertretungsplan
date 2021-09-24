@@ -20,7 +20,7 @@
     <?php
     include '../backend/vertretungsplan-anzeigen.php';
     include '../backend/extra_nachricht_anzeigen.php';
-    
+
     $db = dbConnect();
     $db_erg = mysqli_query($db, "SELECT * FROM `colorlayout` WHERE 1");
     $zeile = mysqli_fetch_array($db_erg, MYSQLI_BOTH);
@@ -33,10 +33,11 @@
     ?>
     <script>
         function master() {
-            startTime();//Starts Time
-            scroll(2, 2000);//used to scroll the main content up and down
+            startTime();
+            scroll(2, 2000);
             test(2);
-            switchbetween(30000);//Bei keiner Nachricht vorhanden darf die Funktion nicht ausgeführt werden
+            //switchbetween(3000);
+            //showNewsSwitch(12);
         }
     </script>
     <style>
@@ -88,14 +89,15 @@
             </section>
         </article>
 
-        <!--Einträge News-->
+        <!--Einträge Extra News-->
         <article class="innerMain" id="2" style="display:none;">
-            <header>Wichtig</header>
+            <header>News</header>
             </br>
             <?php
             $datum = date("Y-m-d");
             $db = dbConnect();
-            showNews($db, $datum);
+            $counter = showNews($db);
+            echo"<script>showNewsSwitch($counter, 2000);</script>";
             mysqli_close($db);
             ?>
 
@@ -113,10 +115,8 @@
         $datum = date("Y-m-d");
         $timestamp = time();
         $uhrzeit = date("H:i", $timestamp);
-
         $eintrag = "SELECT * FROM `news` WHERE `Datum` LIKE '$datum'";
         $result = mysqli_query($db, $eintrag);
-
         $stack = array();
 
         while ($zeile = mysqli_fetch_array($result, MYSQLI_BOTH)) {
@@ -135,16 +135,15 @@
             }
         }
 
-
         $eintrag = "SELECT * FROM `news` WHERE `Datum` LIKE '$datum'";
         $result = mysqli_query($db, $eintrag);
         if ($result->num_rows > 0) {
-            echo '<marquee>';
+            echo '<div id="marquee" class="marquee"><span>';
             while ($zeile = mysqli_fetch_array($result, MYSQLI_BOTH)) {
-                echo $zeile['Inhalt'] . '&emsp;&emsp;&emsp;&emsp;';
+                echo '|&emsp;'.$zeile['Inhalt'] . '&emsp;|&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;';
             }
             mysqli_close($db);
-            echo '</marquee>';
+            echo '</span></div>';
         }
         ?>
 
