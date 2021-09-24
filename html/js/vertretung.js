@@ -71,7 +71,6 @@ function switchbetween(delay) {
 }
 
 function showNewsSwitch(max, delay) {
-    $max = max;
     $min = 10;
     $counter = 10;
     document.getElementById($min).style.display = "block";
