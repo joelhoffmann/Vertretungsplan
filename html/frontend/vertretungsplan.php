@@ -34,8 +34,7 @@
     <script>
         function master() {
             startTime();
-            scroll(2, 2000);
-
+            scroll(1, 2000);
             document.getElementById(1).style.display = "block";
             switchbetween(120000);
             //showNewsSwitch(13, 10000);//Not needed, is called in main
