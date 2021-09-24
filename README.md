@@ -1,17 +1,17 @@
 # Vertetungsplan
-Hier muss noch ein Bild rein
+Die Hauptansicht teilt sich in drei Teile auf. Heute, der nächste Tag und die Nachrichten/Uhrzeit. Heute und der nächste Tag sind die Hauptanzeigen und auf ihnen findet man Informationen über etwatige Ausfällle. Die Nachrichten sind standardmäßig leer, es sei den der zuständige Lehrer fügt welche im Admin-Panel unter dem Reiter Nachrichten hinzu. Die Uhrzeit zeigt die aktuelle Systemuhrzeit des Servers an. Ist dieser nicht mit dem Internet verbunden oder falsch eingestellt, so kann es sein, dass die Uhrzeit nicht stimmt.
 
 # Funktionsweise
 Eine Textfile kann im Admin-Panel hochgeladen werden, welche in einer MySQL-Datanbank gespeichert wird. 
 
 WICHTIG:
-Die Textfile darf keine Änderungen enthalten, sondern muss immer alle Einträge enthalten, da im Upoload-Prozess in upload.php die Tabelle für eine bessere Performance komplett neu angelegt wird.
+Die Textfile darf nicht nur die neuen Einträge für den Tag, sondern muss immer alle Einträge enthalten, da im Upoload-Prozess in upload.php die Tabelle für eine bessere Performance komplett neu angelegt wird.
 
 Anschließend wird in vertretungsplan.php die Datenbank nach Einträgen für heute und dem nächsten vorhandenem Tag durchsucht und klassenweise angezeigt.
-Sind zu viele Einträge für einen Tag vorhanden, wird automatisch hoch und runter gescrollt. Dabei ist die Seite mit mehr Einträgen, die dardurch länger ist, der Master. Das heißt sie bestimmt wann die Richtung gewechselt wird.
+Sind zu viele Einträge für einen Tag vorhanden, wird automatisch hoch und runter gescrollt. Dabei ist die Seite mit mehr Einträgen, die dardurch länger ist, der Master. Das heißt die kleinere Seite muss auf die längere Seite oben und unten warten. Der Master bestimmt wann die Richtung gewechselt wird.
 
 # Welche Einträge werden mit aufgenommen?
-Durch die Formatierung der GPUxx.txt Files von Untis werden nur die Einträge übernommen, welche in ihrem Bitfeld(Art) eine der folgenden Zahlen vorweisen kann:
+Durch die Formatierung der GPU014.txt Files von Untis werden nur die Einträge übernommen, welche in ihrem Bitfeld(Art) eine der folgenden Zahlen vorweisen kann:
 * 0: Entfall
 * 1: Betreuung
 * 2: Sondereinsatz

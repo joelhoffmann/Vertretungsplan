@@ -65,7 +65,7 @@ function setEntry($db, $datum, $callback)
 {
 
     if ($callback >= 365) {
-        echo "<h1>Hab nichts zum anziegen :)</1h>";
+        echo "<h1>Ich hab leider nichts zum anzeigen gefunden. Sieht ganz so aus als ob nichts ausfällt ;)</1h>";
         return;
     } else {
         $sql = "SELECT * FROM `vertretung_daten` WHERE `Datum` LIKE '$datum'"; //SQl befehl für klasse und datum
