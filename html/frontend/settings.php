@@ -10,7 +10,6 @@
     <meta name="author" content="Simon Krieger">
 
     <link rel="stylesheet" href="settings.css">
-    <script language="javascript" type="text/javascript" src="../js/setti.js"></script>
 
     <title>Vertretungsplan Admin</title>
     <?php
@@ -97,7 +96,13 @@
 
     fileListener("Titel", "vorschau_Title");
     fileListener("Nachricht_EN", "vorschau_Text");
-
+    
+    function showDiv(id) {
+    for (var i = 1; i < 5; i++) {
+        document.getElementById(i).style.display = "none";
+    }
+    document.getElementById(id).style.display = "block";
+}
 </script>
 
 <body style="margin: 0;">
