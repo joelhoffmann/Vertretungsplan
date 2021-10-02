@@ -35,7 +35,7 @@
         function master() {
             startTime();
             scroll(1, 2000);
-            document.getElementById(1).style.display = "block";
+            document.getElementById(2).style.display = "block";
             switchbetween(120000);
             //showNewsSwitch(13, 10000);//Not needed, is called in main
         }
@@ -97,7 +97,7 @@
             $datum = date("Y-m-d");
             $db = dbConnect();
             $counter = showNews($db);
-            echo "<script>showNewsSwitch($counter, 2000);</script>";
+            //echo "<script>showNewsSwitch($counter, 2000);</script>";
             mysqli_close($db);
             ?>
 
