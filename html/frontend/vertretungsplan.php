@@ -12,8 +12,6 @@
     <link rel="stylesheet" href="mainhome.css">
 
     <script language="javascript" type="text/javascript" src="../js/vertretung.js"></script>
-    <script language="javascript" type="text/javascript" src="../js/setti.js"></script>
-
 
     <title>dys - display your school</title>
 
@@ -30,14 +28,14 @@
     $InnerBoxBackgroundColor = $zeile['F3'];
     $BoxBackgroundColor = $zeile['F4'];
     $BoxTextColor = $zeile['F5'];
+
     ?>
     <script>
         function master() {
             startTime();
             scroll(1, 2000);
-            document.getElementById(2).style.display = "block";
-            switchbetween(120000);
-            //showNewsSwitch(13, 10000);//Not needed, is called in main
+            document.getElementById(1).style.display = "block";
+            if (<?php echo (mysqli_query($db, "SELECT * FROM `news_extra` WHERE `date_end` >= CURDATE() ")->num_rows); ?> > 0) switchbetween(120000);
         }
     </script>
     <style>
@@ -80,11 +78,12 @@
                 $db = dbConnect();
                 $morgen = date('Y-m-d', strtotime('now + 1 day'));
                 $newDate = setEntry($db, $morgen, 0);
+                $change = date('d.m.Y', strtotime('now + ' . $newDate . ' day'));
+                
                 mysqli_close($db);
                 ?>
                 <script>
-                    var change = "<?php echo $newDate; ?>";
-                    nextDay(change);
+                    document.getElementById('naechsterTag').innerHTML = "Nächter Tag, <?php echo $change; ?>";
                 </script>
             </section>
         </article>
@@ -97,7 +96,6 @@
             $datum = date("Y-m-d");
             $db = dbConnect();
             $counter = showNews($db);
-            //echo "<script>showNewsSwitch($counter, 2000);</script>";
             mysqli_close($db);
             ?>
 

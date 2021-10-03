@@ -18,7 +18,7 @@ function showNews($db)
             if ($zeile['picture_location']) {
                 list($width, $height) = getimagesize($zeile['picture_location']);
                 if ($width > $height) { //Querformat
-                    echo "<img class='ExtraPicture' src=" . $zeile['picture_location'] . " alt='' width='84%' height='84%' >";
+                    echo "<img class='ExtraPicture' src=" . $zeile['picture_location'] . " alt='' width='84%' height='84%'>";
                     echo "<style>.outerExtra{display: grid;width: 100%;grid-auto-flow: row;}</style>"; //custom css for innerExtra
                 } else { //Hochformat
                     echo "<img class='ExtraPicture' src=" . $zeile['picture_location'] . " alt='' width='70%' height='100%'>";
@@ -39,6 +39,7 @@ function showNews($db)
 
     while ($zeile = mysqli_fetch_array($db_erg, MYSQLI_ASSOC)) {
         $loesch = $zeile['ID'];
+        unlink($zeile['picture_location']);
         //echo "DELETE FROM news_extra WHERE id = $loesch";
         mysqli_query($db, "DELETE FROM news_extra WHERE id = $loesch");
     }

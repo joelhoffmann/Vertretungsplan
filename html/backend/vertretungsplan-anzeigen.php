@@ -96,8 +96,7 @@ function setEntry($db, $datum, $callback)
                     die('Ungültige Abfrage: ');
                 }
 
-                if ($db_erg->num_rows > 0) {
-
+                if ($db_erg->num_rows > 0) { 
                     echo "<section class='innerBox'><h2>$klassen[$i]</h2><section class='ausfallendeStunden'>";
                     while ($zeile = mysqli_fetch_array($db_erg, MYSQLI_ASSOC)) {
                         $ende = "true";

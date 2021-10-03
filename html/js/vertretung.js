@@ -49,9 +49,7 @@ function checkTime(i) {
 }
 
 function nextDay(diff) { //Prints out date to header
-    var today = new Date();
-    var date = String(today.getDate() + (parseInt(diff)) + 1) + '.' + (String(today.getMonth() + 1)).padStart(2, '0') + '.' + String(today.getFullYear()).substr(-2);
-    document.getElementById('naechsterTag').innerHTML = "Nächster Tag, " + date;
+    document.getElementById('naechsterTag').innerHTML = "Nächster Tag,".diff;
 
 
 }
@@ -83,7 +81,7 @@ function showNewsSwitch(max, delay) {
             document.getElementById(i).style.display = "none";
         }
         document.getElementById($counter).style.display = "block";
-        
+
         $counter++;
     }, delay);
 
