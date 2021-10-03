@@ -10,7 +10,6 @@
     <meta name="author" content="Simon Krieger">
 
     <link rel="stylesheet" href="settings.css">
-    <script language="javascript" type="text/javascript" src="../js/setti.js"></script>
 
     <title>Vertretungsplan Admin</title>
     <?php
@@ -50,10 +49,10 @@
                 console.log("Pulled from Git");
             });
         });
-       
 
 
-       
+
+
     }
 
     function changeEventHandler($id) {
@@ -97,6 +96,13 @@
 
     fileListener("Titel", "vorschau_Title");
     fileListener("Nachricht_EN", "vorschau_Text");
+    
+    function showDiv(id) {
+    for (var i = 1; i < 5; i++) {
+        document.getElementById(i).style.display = "none";
+    }
+    document.getElementById(id).style.display = "block";
+}
 </script>
 
 <body style="margin: 0;">
@@ -189,16 +195,16 @@
             </section>
         </section>
         <script>
-            vorschau_bild.onload = function(){
-                if(this.naturalWidth >this.naturalHeight){ //Querformat
+            vorschau_bild.onload = function() {
+                if (this.naturalWidth > this.naturalHeight) { //Querformat
                     document.getElementById('innerVorschau').setAttribute("style", "display: grid;width: 90%;margin: auto;grid-auto-flow: row;row-gap: 10%;");
                     document.getElementById('vorschau_Text').setAttribute("style", "margin: auto;");
 
-                }else{//Hochformat
+                } else { //Hochformat
                     document.getElementById('innerVorschau').setAttribute("style", "display: grid;width: 90%;grid-template-columns: 50% 50%;column-gap: 5%;");
                     document.getElementById('vorschau_Text').setAttribute("style", "margin-left: 20%;overflow-wrap: break-word");
                 }
-                
+
             }
         </script>
         <span class="vorschauUnterschrift">Vorschau, ca. 85% der Originalgröße</span>

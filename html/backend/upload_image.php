@@ -7,13 +7,13 @@ $uploadOk = 1;
 $FileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
 
 // Check if file already exists
-if (file_exists($target_file)) {
+if (file_exists($target_file)) {//brauchen wir eigentlich nicht
     echo "Sorry, file already exists.";
     $uploadOk = 0;
 }
 
 // Check file size
-if ($_FILES["pictureToUpload"]["size"] > 5000000000) {
+if ($_FILES["pictureToUpload"]["size"] > 5000000000) {//könnte man eigentlich auch ausbauen
     echo "Sorry, your file is too large.";
     $uploadOk = 0;
 }
